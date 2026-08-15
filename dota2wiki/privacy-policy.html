@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Dota 2 Wiki</title>
+  <meta name="description" content="Privacy Policy for Dota 2 Wiki application for iOS and iPadOS.">
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .legal-content {
+      max-width: 800px;
+      margin: 40px auto 80px;
+      background: var(--bg-card);
+      border: 1px solid var(--line-subtle);
+      border-radius: 12px;
+      padding: 48px;
+    }
+    .legal-content h1 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .legal-content .last-updated {
+      color: var(--accent-gold);
+      font-size: 14px;
+      margin-bottom: 32px;
+      display: block;
+    }
+    .legal-content h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-top: 32px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--line-subtle);
+      padding-bottom: 8px;
+    }
+    .legal-content p, .legal-content li {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .legal-content ul {
+      margin-left: 24px;
+      margin-bottom: 20px;
+    }
+    .legal-content strong {
+      color: var(--text-main);
+    }
+    .legal-content a {
+      color: var(--accent-ember);
+      text-decoration: none;
+    }
+    .legal-content a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo-group">
+        <img src="assets/app_icon.png" alt="Dota 2 Wiki Logo" class="logo-img">
+        <span class="logo-text">DOTA 2 WIKI</span>
+        <span class="logo-badge">Legal</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">← Back to Home</a>
+        <a href="terms.html" class="nav-link">Terms of Service</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Legal Content -->
+  <main class="container">
+    <article class="legal-content">
+      <h1>Privacy Policy for Dota2wiki</h1>
+      <span class="last-updated">Last updated: July 27, 2026</span>
+
+      <p>
+        <strong>Dota2wiki</strong> ("the app", "we", or "us") is an unofficial, fan-made reference application providing Dota 2 hero, item, ability, and patch note information. This policy describes how data is handled when you use the app.
+      </p>
+
+      <h2>1. Data We Collect</h2>
+      <p>
+        <strong>None.</strong> The app does not require user accounts, does not provide user logins, and does not integrate any third-party advertising SDKs, tracking pixels, or user behavior analytics frameworks.
+      </p>
+
+      <h2>2. Data Stored Locally on Your Device</h2>
+      <ul>
+        <li>
+          <strong>Language Preferences:</strong> Saved locally using standard OS local storage APIs (such as <code>shared_preferences</code> / <code>UserDefaults</code>) so your preferred language persists across sessions.
+        </li>
+        <li>
+          <strong>Offline Cache:</strong> Public game information, hero stats, item recipes, and images are cached locally on your device to ensure fast offline loading. This cache remains strictly local on your device and is never transmitted to any private servers.
+        </li>
+      </ul>
+
+      <h2>3. Network Requests & Third Parties</h2>
+      <p>
+        To render the latest game data and high-definition hero renders, the app makes standard runtime HTTP requests to public endpoints:
+      </p>
+      <ul>
+        <li>
+          <code>dota2.com</code> and Valve's Content Delivery Network (<code>steamstatic.com</code>) — for game data, artwork, and video clips owned by <strong>Valve Corporation</strong>.
+        </li>
+        <li>
+          <code>fonts.gstatic.com</code> (Google Fonts) — to load typography styles.
+        </li>
+      </ul>
+      <p>
+        These network requests connect your device directly to Valve and Google servers and are governed by their respective privacy policies. We do not operate intermediate servers that log or monitor your IP address or requests.
+      </p>
+
+      <h2>4. Children’s Privacy</h2>
+      <p>
+        The app does not collect personal information from any users, including children under the age of 13.
+      </p>
+
+      <h2>5. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. Any updates will be reflected with a revised "Last updated" date at the top of this document.
+      </p>
+
+      <h2>6. Contact Us</h2>
+      <p>
+        If you have any questions or feedback regarding this Privacy Policy, please contact us at: <a href="mailto:serhii.londar@gmail.com">serhii.londar@gmail.com</a>
+      </p>
+
+      <div class="disclaimer-box" style="margin-top: 36px;">
+        <strong>Notice:</strong> Dota 2 is a registered trademark of Valve Corporation. This application is not created, sponsored, or endorsed by Valve Corporation.
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer" style="margin-top: 40px;">
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Serhii Londar. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
