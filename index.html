@@ -2,13 +2,300 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=dota2wiki/index.html">
-  <title>Apps by Serhii Londar</title>
-  <script>
-    window.location.href = "dota2wiki/index.html";
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apps by Serhii Londar — iOS & iPadOS Mobile Applications</title>
+  <meta name="description" content="Explore native iOS & iPadOS mobile applications crafted by Serhii Londar, including Dota 2 Wiki and DevTo.">
+  <meta name="author" content="Serhii Londar">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Apps by Serhii Londar — iOS & iPadOS Applications">
+  <meta property="og:description" content="Discover native, beautifully designed iOS & iPadOS apps including Dota 2 Wiki and DevTo.">
+  <meta property="og:image" content="dev-to-lending-page/images/screenshot-home.png">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
 </head>
-<body style="background:#0a0807;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
-  <p>Redirecting to <a href="dota2wiki/index.html" style="color:#e5a93c;">Dota 2 Wiki</a>...</p>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- ── Navigation ───────────────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-avatar">SL</div>
+        <div class="brand-info">
+          <span class="brand-name">Serhii Londar</span>
+          <span class="brand-tag">iOS & macOS Developer</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#apps" class="nav-link">Apps</a>
+        <a href="#upcoming" class="nav-link">In the Lab</a>
+        <a href="https://github.com/serhii-londar" target="_blank" rel="noopener noreferrer" class="nav-social-btn" title="GitHub Profile">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Hero Section ─────────────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Indie Mobile Applications</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="gradient-text">Native, fast, and thoughtful</span><br>
+          <span class="highlight">iOS & iPadOS Experiences</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Explore production-grade iOS apps built with Swift, modern UI paradigms, and real-time offline capabilities.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">2+</span>
+            <span class="stat-label">Live Apps</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Native Swift</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">iOS & iPadOS</span>
+            <span class="stat-label">Universal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Featured Apps Grid ───────────────────────────────────────────────── -->
+    <section class="container" id="apps">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <span class="section-tag">Portfolio</span>
+          <h2 class="section-title">Published Applications</h2>
+        </div>
+      </div>
+
+      <div class="apps-grid">
+
+        <!-- App 1: Dota 2 Wiki -->
+        <article class="app-card app-card-dota">
+          <div class="app-preview-wrap">
+            <img src="dota2wiki/assets/ipad_hero_grid.png" alt="Dota 2 Wiki app preview" loading="lazy">
+            <div class="app-preview-overlay"></div>
+            <div class="app-icon-badge">
+              <img src="dota2wiki/assets/app_icon.png" alt="Dota 2 Wiki Icon">
+            </div>
+          </div>
+
+          <div class="app-card-body">
+            <div class="app-header">
+              <div class="app-title-group">
+                <h3>Dota 2 Wiki</h3>
+                <span class="app-tagline">Gaming Companion & Database</span>
+              </div>
+              <span class="app-badge-status status-live">Live</span>
+            </div>
+
+            <p class="app-description">
+              The ultimate Dota 2 companion for iPhone and iPad. Complete 124+ hero abilities with video animations, facet breakdowns, item build trees, and complete patch changelogs.
+            </p>
+
+            <div class="app-tags">
+              <span class="tag-pill">⚔️ 124+ Heroes</span>
+              <span class="tag-pill">🛡️ Item Builds</span>
+              <span class="tag-pill">📜 Patch Notes</span>
+              <span class="tag-pill">⚡ Offline-Ready</span>
+            </div>
+
+            <div class="app-card-actions">
+              <a href="dota2wiki/index.html" class="btn btn-dota">
+                View Landing Page
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <a href="dota2wiki/privacy-policy.html" class="btn btn-secondary" title="Privacy Policy">
+                Privacy
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- App 2: DevTo Native Client -->
+        <article class="app-card app-card-devto">
+          <div class="app-preview-wrap">
+            <img src="dev-to-lending-page/images/screenshot-home.png" alt="DevTo app preview" loading="lazy">
+            <div class="app-preview-overlay"></div>
+            <div class="app-icon-badge">
+              <img src="dev-to-lending-page/app-icon.png" alt="DevTo Icon">
+            </div>
+          </div>
+
+          <div class="app-card-body">
+            <div class="app-header">
+              <div class="app-title-group">
+                <h3>DevTo</h3>
+                <span class="app-tagline">Developer Community Reader</span>
+              </div>
+              <span class="app-badge-status status-live">Live</span>
+            </div>
+
+            <p class="app-description">
+              A fast, elegant native iOS & iPadOS client for DEV Community (dev.to). Discover articles, search topics, read with rich syntax highlighting, and bookmark for offline reading.
+            </p>
+
+            <div class="app-tags">
+              <span class="tag-pill">💻 DEV Community</span>
+              <span class="tag-pill">🔖 Offline Bookmarks</span>
+              <span class="tag-pill">🎨 Syntax Themes</span>
+              <span class="tag-pill">🔍 Fast Search</span>
+            </div>
+
+            <div class="app-card-actions">
+              <a href="dev-to-lending-page/index.html" class="btn btn-devto">
+                View Landing Page
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <a href="https://apps.apple.com/app/id1591660057" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="App Store">
+                App Store
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── Potential / In Development Section ──────────────────────────────── -->
+    <section class="container" id="upcoming">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <span class="section-tag">Pipeline</span>
+          <h2 class="section-title">In The Lab & Upcoming</h2>
+        </div>
+      </div>
+
+      <div class="apps-grid">
+        <article class="app-card app-card-potential">
+          <div class="potential-icon-circle">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <span class="app-badge-status status-upcoming" style="margin-bottom: 12px;">Next Release</span>
+          <h3 class="potential-title">New Mobile App in Progress</h3>
+          <p class="potential-desc">
+            More native iOS, iPadOS, and macOS utilities are currently being crafted. Follow on GitHub to track development and join TestFlight betas.
+          </p>
+          <a href="https://github.com/serhii-londar" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Follow Development
+          </a>
+        </article>
+
+        <article class="app-card app-card-potential">
+          <div class="potential-icon-circle">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <span class="app-badge-status status-upcoming" style="margin-bottom: 12px;">Ideas & Feedback</span>
+          <h3 class="potential-title">Suggest a Feature or App</h3>
+          <p class="potential-desc">
+            Have an idea for a companion app, developer tool, or utility? Open an issue or start a discussion on GitHub.
+          </p>
+          <a href="https://github.com/serhii-londar/landing-pages/issues" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Open Feedback Issue
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── Structure & Multi-App Info Banner ───────────────────────────────── -->
+    <section class="container">
+      <div class="info-banner">
+        <div class="info-banner-grid">
+          <div class="info-item">
+            <div class="info-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <div class="info-item-content">
+              <h4>Modular Architecture</h4>
+              <p>Each app maintains its own dedicated landing page, privacy policy, and terms under its own subfolder.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <div class="info-item-content">
+              <h4>Extensible for New Apps</h4>
+              <p>Adding a new app is as simple as creating a new folder with its landing assets and linking it to the central hub.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="info-item-content">
+              <h4>App Store Compliant</h4>
+              <p>Includes separate privacy policies and support paths required by App Store Guidelines for each individual app.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-copyright">
+        © <span id="currentYear"></span> Serhii Londar. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="dota2wiki/index.html">Dota 2 Wiki</a>
+        <a href="dev-to-lending-page/index.html">DevTo</a>
+        <a href="https://github.com/serhii-londar" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
