@@ -463,9 +463,13 @@ body {
 
 .app-card-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   padding-top: 16px;
   border-top: 1px solid var(--border-color);
+}
+
+.app-card-actions .btn:first-child {
+  flex: 1.4;
 }
 
 .btn {
@@ -473,7 +477,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 10px 14px;
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 600;
