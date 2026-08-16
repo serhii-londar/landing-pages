@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support & Help Center — {{APP_NAME}}</title>
+  <meta name="description" content="Official support, FAQs, and help center for {{APP_NAME}} for iOS and iPadOS.">
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .support-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .support-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .support-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .support-card:hover {
+      border-color: var(--border-highlight);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+    .support-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-gradient);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .support-card:hover::before {
+      opacity: 1;
+    }
+    .support-card-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .support-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .support-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .support-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-highlight);
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .support-card-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .support-card-btn.primary {
+      background: var(--primary-gradient);
+      border-color: transparent;
+      color: #fff;
+    }
+    .support-card-btn.primary:hover {
+      box-shadow: 0 4px 16px rgba(59, 73, 223, 0.45);
+      transform: translateY(-1px);
+    }
+    .faq-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+    .faq-title {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 36px;
+      letter-spacing: -0.02em;
+    }
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .faq-item:hover {
+      border-color: var(--border-highlight);
+    }
+    .faq-item summary {
+      padding: 20px 24px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary::after {
+      content: "+";
+      font-size: 22px;
+      color: var(--primary-light);
+      font-weight: 300;
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] summary::after {
+      content: "−";
+    }
+    .faq-content {
+      padding: 0 24px 20px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 4px;
+      padding-top: 16px;
+    }
+    .faq-content p {
+      margin-bottom: 12px;
+    }
+    .faq-content ul {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+    .faq-content code {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--primary-light);
+    }
+    .faq-content a {
+      color: #818cf8;
+      text-decoration: underline;
+    }
+    .app-meta-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .app-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .app-meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+    .app-meta-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">
+        <img src="assets/app_icon.png" alt="{{APP_NAME}} Icon" class="brand-icon">
+        <span class="brand-name">{{APP_NAME}}</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">← Back to Home</a>
+        <a href="privacy-policy.html" class="nav-link">Privacy</a>
+        <a href="terms.html" class="nav-link">Terms</a>
+        <a href="{{APP_STORE_URL}}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+          Get App
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Support Main Content -->
+  <main class="container">
+    
+    <!-- Support Hero -->
+    <section class="support-hero">
+      <div class="hero-badge" style="margin-bottom: 16px;">
+        <span class="badge-dot"></span>
+        <span>Help & Customer Support</span>
+      </div>
+      <h1 class="hero-title" style="margin-bottom: 16px;">
+        How Can We <span class="gradient-text">Help You?</span>
+      </h1>
+      <p class="hero-subtitle" style="margin: 0 auto; max-width: 650px;">
+        Find answers to frequently asked questions, learn how {{APP_NAME}} functions, or get in touch directly with support.
+      </p>
+    </section>
+
+    <!-- Support Contact Channels Grid -->
+    <div class="support-cards-grid">
+      
+      <!-- Email Support -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">✉️</span>
+          <h3>Direct Email Support</h3>
+          <p>
+            Have a question, feedback, or need assistance using the app? Reach out directly via email. We typically respond within 24–48 hours.
+          </p>
+        </div>
+        <a href="mailto:{{SUPPORT_EMAIL}}?subject={{APP_NAME}}%20Support%20Request" class="support-card-btn primary">
+          Email {{SUPPORT_EMAIL}}
+        </a>
+      </div>
+
+      <!-- Bug Reports & Feedback -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">🐛</span>
+          <h3>Report a Bug or Issue</h3>
+          <p>
+            Encountered a layout glitch, data error, or crash? Please let us know the details so we can fix it promptly in the next update.
+          </p>
+        </div>
+        <a href="mailto:{{SUPPORT_EMAIL}}?subject={{APP_NAME}}%20Bug%20Report" class="support-card-btn">
+          Report an Issue
+        </a>
+      </div>
+
+      <!-- Feature Requests -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">💡</span>
+          <h3>Feature Suggestions</h3>
+          <p>
+            Have an idea for a new feature, workflow enhancement, or widget? We'd love to hear your feedback!
+          </p>
+        </div>
+        <a href="mailto:{{SUPPORT_EMAIL}}?subject={{APP_NAME}}%20Feature%20Suggestion" class="support-card-btn">
+          Suggest Feature
+        </a>
+      </div>
+
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <details class="faq-item" open>
+        <summary>What is {{APP_NAME}}?</summary>
+        <div class="faq-content">
+          <p>
+            {{APP_NAME}} is a native iOS and iPadOS application designed for {{APP_TAGLINE}}.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does {{APP_NAME}} work without an internet connection?</summary>
+        <div class="faq-content">
+          <p>
+            <strong>Yes!</strong> All essential data and preferences are cached locally on your device storage so you can continue using core features offline.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Which devices and iOS versions are supported?</summary>
+        <div class="faq-content">
+          <p>{{APP_NAME}} is optimized for:</p>
+          <ul>
+            <li><strong>iPhone:</strong> iOS 16.0 or later</li>
+            <li><strong>iPad:</strong> iPadOS 16.0 or later with multi-column layouts</li>
+            <li><strong>Mac:</strong> macOS 13.0 or later on Apple Silicon (M1/M2/M3/M4) Macs</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does the app collect or track my personal data?</summary>
+        <div class="faq-content">
+          <p>
+            The app does not collect personal identity information. For full details, please review our <a href="privacy-policy.html">Privacy Policy</a>.
+          </p>
+        </div>
+      </details>
+
+      <!-- App Metadata Box -->
+      <div class="app-meta-box">
+        <div class="app-meta-item">
+          <span class="app-meta-label">App Name</span>
+          <span class="app-meta-value">{{APP_NAME}}</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">App Version</span>
+          <span class="app-meta-value">1.0.0</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Platforms</span>
+          <span class="app-meta-value">iOS &bull; iPadOS &bull; macOS</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Support Contact</span>
+          <span class="app-meta-value"><a href="mailto:{{SUPPORT_EMAIL}}" style="color: var(--primary-light); text-decoration: none;">{{SUPPORT_EMAIL}}</a></span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Developer</span>
+          <span class="app-meta-value">Serhii Londar</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="assets/app_icon.png" alt="{{APP_NAME}} Icon" class="footer-icon">
+          <span>{{APP_NAME}}</span>
+        </div>
+        <p class="footer-copy">
+          Designed and developed by <a href="https://github.com/serhii-londar" target="_blank" rel="noopener noreferrer">Serhii Londar</a>.
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-links-group">
+          <a href="index.html">Home</a>
+          <a href="{{APP_STORE_URL}}" target="_blank" rel="noopener noreferrer">App Store</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — {{APP_NAME}}</title>
+  <meta name="description" content="Privacy Policy for {{APP_NAME}} application for iOS and iPadOS.">
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .legal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      max-width: 800px;
+      margin: 40px auto 80px;
+    }
+    .legal-content h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.03em;
+    }
+    .legal-content .last-updated {
+      color: var(--primary-light);
+      font-size: 14px;
+      margin-bottom: 32px;
+      display: block;
+    }
+    .legal-content h2, .legal-content strong {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      color: var(--text-primary);
+    }
+    .legal-content p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .legal-content ul {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    .legal-content a {
+      color: #818cf8;
+      text-decoration: underline;
+    }
+    @media (max-width: 640px) {
+      .legal-content {
+        padding: 24px;
+      }
+      .legal-content h1 {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow glow-1"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">
+        <img src="assets/app_icon.png" alt="{{APP_NAME}} Icon" class="brand-icon">
+        <span class="brand-name">{{APP_NAME}}</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">← Back to Home</a>
+        <a href="support.html" class="nav-link">Support</a>
+        <a href="terms.html" class="nav-link">Terms</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Legal Main Content -->
+  <main class="container">
+    <article class="legal-content">
+      <h1>Privacy Policy</h1>
+      <span class="last-updated">Last updated: {{LAST_UPDATED_DATE}}</span>
+      
+      <p>Serhii Londar built the <strong>{{APP_NAME}}</strong> app as a Free/Commercial app. This SERVICE is provided by Serhii Londar and is intended for use as is.</p>
+      <p>This page is used to inform visitors regarding policies with the collection, use, and disclosure of Personal Information for anyone using the Service.</p>
+      
+      <h2>1. Information Collection and Use</h2>
+      <p>The app does not collect personal identity information. All user data, settings, and cache remain stored strictly local on your device.</p>
+
+      <h2>2. Third Party Services</h2>
+      <p>The app may use third-party services (such as Firebase Crashlytics for crash logging) to improve stability and reliability.</p>
+
+      <h2>3. Security</h2>
+      <p>We value your trust. We do not transmit or store private credentials on remote servers.</p>
+
+      <h2>4. Changes to This Privacy Policy</h2>
+      <p>We may update our Privacy Policy periodically. Any changes will be posted on this page with an updated date.</p>
+
+      <h2>5. Contact Us</h2>
+      <p>If you have any questions or suggestions regarding this Privacy Policy, please contact us at: <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a>.</p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="assets/app_icon.png" alt="{{APP_NAME}} Icon" class="footer-icon">
+          <span>{{APP_NAME}}</span>
+        </div>
+        <p class="footer-copy">
+          Designed and developed by <a href="https://github.com/serhii-londar" target="_blank" rel="noopener noreferrer">Serhii Londar</a>.
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-links-group">
+          <a href="index.html">Home</a>
+          <a href="support.html">Support</a>
+          <a href="terms.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

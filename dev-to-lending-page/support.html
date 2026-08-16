@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support & Help Center — DevTo</title>
+  <meta name="description" content="Official support, FAQs, and help center for the DevTo app for iOS and iPadOS.">
+  <meta name="keywords" content="DevTo support, DevTo iOS, DEV Community reader, help, contact, FAQ, troubleshooting, iOS, iPadOS">
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .support-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .support-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .support-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .support-card:hover {
+      border-color: var(--border-highlight);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+    .support-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-gradient);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .support-card:hover::before {
+      opacity: 1;
+    }
+    .support-card-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .support-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .support-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .support-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-highlight);
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .support-card-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .support-card-btn.primary {
+      background: var(--primary-gradient);
+      border-color: transparent;
+      color: #fff;
+    }
+    .support-card-btn.primary:hover {
+      box-shadow: 0 4px 16px rgba(59, 73, 223, 0.45);
+      transform: translateY(-1px);
+    }
+    .faq-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+    .faq-title {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 36px;
+      letter-spacing: -0.02em;
+    }
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .faq-item:hover {
+      border-color: var(--border-highlight);
+    }
+    .faq-item summary {
+      padding: 20px 24px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary::after {
+      content: "+";
+      font-size: 22px;
+      color: var(--primary-light);
+      font-weight: 300;
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] summary::after {
+      content: "−";
+    }
+    .faq-content {
+      padding: 0 24px 20px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 4px;
+      padding-top: 16px;
+    }
+    .faq-content p {
+      margin-bottom: 12px;
+    }
+    .faq-content ul {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+    .faq-content code {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--primary-light);
+    }
+    .faq-content a {
+      color: #818cf8;
+      text-decoration: underline;
+    }
+    .app-meta-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .app-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .app-meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+    .app-meta-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">
+        <img src="app-icon.png" alt="DevTo App Icon" class="brand-icon">
+        <span class="brand-name">DevTo</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">← Back to Home</a>
+        <a href="privacy-policy.html" class="nav-link">Privacy</a>
+        <a href="terms.html" class="nav-link">Terms</a>
+        <a href="https://apps.apple.com/app/id1591660057" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+          Get App
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Support Main Content -->
+  <main class="container">
+    
+    <!-- Support Hero -->
+    <section class="support-hero">
+      <div class="hero-badge" style="margin-bottom: 16px;">
+        <span class="badge-dot"></span>
+        <span>Help & Customer Support</span>
+      </div>
+      <h1 class="hero-title" style="margin-bottom: 16px;">
+        How Can We <span class="gradient-text">Help You?</span>
+      </h1>
+      <p class="hero-subtitle" style="margin: 0 auto; max-width: 650px;">
+        Find answers to frequently asked questions, learn how the DevTo iOS reader functions, or get in touch directly with the developer.
+      </p>
+    </section>
+
+    <!-- Support Contact Channels Grid -->
+    <div class="support-cards-grid">
+      
+      <!-- Email Support -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">✉️</span>
+          <h3>Direct Email Support</h3>
+          <p>
+            Have a question, feedback, or need assistance using the app? Reach out directly via email. I typically respond within 24–48 hours.
+          </p>
+        </div>
+        <a href="mailto:serhii.londar@gmail.com?subject=DevTo%20Support%20Request" class="support-card-btn primary">
+          Email serhii.londar@gmail.com
+        </a>
+      </div>
+
+      <!-- Bug Reports & Feedback -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">🐛</span>
+          <h3>Report a Bug or Issue</h3>
+          <p>
+            Encountered a layout issue, rendering bug, or crash? Please let us know the details so we can fix it promptly in the next App Store update.
+          </p>
+        </div>
+        <a href="mailto:serhii.londar@gmail.com?subject=DevTo%20Bug%20Report" class="support-card-btn">
+          Report an Issue
+        </a>
+      </div>
+
+      <!-- Feature Requests -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">💡</span>
+          <h3>Feature Suggestions</h3>
+          <p>
+            Have an idea for a new reading feature, theme, syntax highlighter improvement, or iPad widget? We'd love to hear your feedback!
+          </p>
+        </div>
+        <a href="mailto:serhii.londar@gmail.com?subject=DevTo%20Feature%20Suggestion" class="support-card-btn">
+          Suggest Feature
+        </a>
+      </div>
+
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <details class="faq-item" open>
+        <summary>What is DevTo for iOS?</summary>
+        <div class="faq-content">
+          <p>
+            DevTo is a fast, native iOS and iPadOS client designed for reading and exploring software engineering articles published on DEV Community (<code>dev.to</code>). It offers distraction-free reading, code syntax highlighting, custom tag filtering, and offline bookmarking.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Do I need an account to use the app?</summary>
+        <div class="faq-content">
+          <p>
+            <strong>No.</strong> You can browse trending articles, search topics, filter by tags, and save bookmarks locally without creating an account or logging in.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does DevTo support offline reading?</summary>
+        <div class="faq-content">
+          <p>
+            <strong>Yes!</strong> You can bookmark any article to your local Reading List with a single tap. Saved articles and their cached contents can be read offline without an active internet connection.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Which devices and iOS versions are supported?</summary>
+        <div class="faq-content">
+          <p>DevTo is optimized for:</p>
+          <ul>
+            <li><strong>iPhone:</strong> iOS 15.0 or later (with full ProMotion 120Hz display support)</li>
+            <li><strong>iPad:</strong> iPadOS 15.0 or later with multi-column sidebar navigation</li>
+            <li><strong>Mac:</strong> macOS 12.0 or later on Apple Silicon (M1/M2/M3/M4) Macs</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does the app collect or track my personal data?</summary>
+        <div class="faq-content">
+          <p>
+            The app does not collect personal identity information. Diagnostics data and crash telemetry are handled securely via Firebase Crashlytics to improve stability. For full details, please review our <a href="privacy-policy.html">Privacy Policy</a>.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is this an official DEV Community app?</summary>
+        <div class="faq-content">
+          <p>
+            DevTo is an independent, native client built by Serhii Londar utilizing the public DEV Community (Forem) API. DEV and DEV Community are trademarks of Forem Inc.
+          </p>
+        </div>
+      </details>
+
+      <!-- App Metadata Box -->
+      <div class="app-meta-box">
+        <div class="app-meta-item">
+          <span class="app-meta-label">App Name</span>
+          <span class="app-meta-value">DevTo — DEV Reader</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">App Version</span>
+          <span class="app-meta-value">1.0.0</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Platforms</span>
+          <span class="app-meta-value">iOS &bull; iPadOS &bull; macOS</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Support Contact</span>
+          <span class="app-meta-value"><a href="mailto:serhii.londar@gmail.com" style="color: var(--primary-light); text-decoration: none;">serhii.londar@gmail.com</a></span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Developer</span>
+          <span class="app-meta-value">Serhii Londar</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="app-icon.png" alt="DevTo Icon" class="footer-icon">
+          <span>DevTo</span>
+        </div>
+        <p class="footer-copy">
+          Designed and developed by <a href="https://twitter.com/serhii_londar" target="_blank" rel="noopener noreferrer">Serhii Londar</a>.
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-links-group">
+          <a href="index.html">Home</a>
+          <a href="https://apps.apple.com/app/id1591660057" target="_blank" rel="noopener noreferrer">App Store</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
