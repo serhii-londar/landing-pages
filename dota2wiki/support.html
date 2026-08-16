@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support & Help Center — Dota 2 Wiki</title>
+  <meta name="description" content="Official support, FAQs, and help center for the Dota 2 Wiki app for iOS and iPadOS.">
+  <meta name="keywords" content="Dota 2 Wiki support, help, contact, FAQ, troubleshooting, iOS, iPadOS">
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .support-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .support-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .support-card {
+      background: var(--bg-card);
+      border: 1px solid var(--line-subtle);
+      border-radius: 14px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .support-card:hover {
+      border-color: var(--line-highlight);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+    .support-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .support-card:hover::before {
+      opacity: 1;
+    }
+    .support-card-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .support-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+    .support-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .support-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line-highlight);
+      color: var(--text-main);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .support-card-btn:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      color: #fff;
+    }
+    .support-card-btn.primary {
+      background: linear-gradient(135deg, #c23c2a 0%, #991f11 100%);
+      border-color: rgba(211, 60, 42, 0.5);
+      color: #fff;
+    }
+    .support-card-btn.primary:hover {
+      box-shadow: 0 4px 16px rgba(211, 60, 42, 0.45);
+      transform: translateY(-1px);
+    }
+    .faq-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--line-subtle);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .faq-item:hover {
+      border-color: var(--line-highlight);
+    }
+    .faq-item summary {
+      padding: 20px 24px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      color: var(--text-main);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary::after {
+      content: "+";
+      font-size: 22px;
+      color: var(--accent-gold);
+      font-family: var(--font-body);
+      font-weight: 300;
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] summary::after {
+      content: "−";
+      transform: rotate(0deg);
+    }
+    .faq-content {
+      padding: 0 24px 20px;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 4px;
+      padding-top: 16px;
+    }
+    .faq-content p {
+      margin-bottom: 12px;
+    }
+    .faq-content ul {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+    .faq-content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--accent-gold);
+    }
+    .faq-content a {
+      color: var(--accent-ember);
+      text-decoration: none;
+    }
+    .faq-content a:hover {
+      text-decoration: underline;
+    }
+    .app-meta-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--line-subtle);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .app-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .app-meta-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-faint);
+    }
+    .app-meta-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- ── Navigation ───────────────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo-group">
+        <img src="assets/app_icon.png" alt="Dota 2 Wiki Logo" class="logo-img">
+        <span class="logo-text">DOTA 2 WIKI</span>
+        <span class="logo-badge">Support</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">← Back to Home</a>
+        <a href="privacy-policy.html" class="nav-link">Privacy</a>
+        <a href="terms.html" class="nav-link">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Main Support Content ─────────────────────────────────────────────── -->
+  <main class="container">
+    
+    <!-- Support Hero -->
+    <section class="support-hero">
+      <div class="hero-eyebrow">
+        <span>🛡️ Help & Customer Support</span>
+      </div>
+      <h1 class="hero-title" style="margin-bottom: 12px;">
+        How Can We <span>Help You?</span>
+      </h1>
+      <p class="hero-subtitle">
+        Find answers to frequently asked questions, learn how the app functions, or get in touch directly with our support team.
+      </p>
+    </section>
+
+    <!-- Support Contact Channels Grid -->
+    <div class="support-cards-grid">
+      
+      <!-- Email Support -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">✉️</span>
+          <h3>Direct Email Support</h3>
+          <p>
+            Have a question, feedback, or need assistance? Reach out directly via email. We typically respond within 24–48 hours.
+          </p>
+        </div>
+        <a href="mailto:serhii.londar@gmail.com?subject=Dota%202%20Wiki%20Support%20Request" class="support-card-btn primary">
+          Email serhii.londar@gmail.com
+        </a>
+      </div>
+
+      <!-- Bug Reports & Feedback -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">🐛</span>
+          <h3>Report a Bug or Issue</h3>
+          <p>
+            Spotted a stat discrepancy, broken ability video, or UI glitch? Please let us know the details so we can fix it in the next update.
+          </p>
+        </div>
+        <a href="mailto:serhii.londar@gmail.com?subject=Dota%202%20Wiki%20Bug%20Report" class="support-card-btn">
+          Report an Issue
+        </a>
+      </div>
+
+      <!-- Feature Requests -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">💡</span>
+          <h3>Feature Suggestions</h3>
+          <p>
+            Have an idea for a new feature, build calculator, or widget? We'd love to hear your thoughts and suggestions.
+          </p>
+        </div>
+        <a href="mailto:serhii.londar@gmail.com?subject=Dota%202%20Wiki%20Feature%20Suggestion" class="support-card-btn">
+          Suggest Feature
+        </a>
+      </div>
+
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <details class="faq-item" open>
+        <summary>How often is hero, item, and patch data updated?</summary>
+        <div class="faq-content">
+          <p>
+            Dota 2 Wiki dynamically fetches the latest hero attributes, facet trees, ability stats, and balance changelogs directly from Valve's official public game endpoints. Whenever Valve releases a new balance patch (e.g. 7.37, 7.38) or hero update, fresh data is automatically synchronized upon opening the app.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does Dota 2 Wiki work without an internet connection?</summary>
+        <div class="faq-content">
+          <p>
+            <strong>Yes!</strong> All hero details, item recipes, and patch note entries are automatically cached locally on your device storage. If you lose internet access, the app seamlessly serves cached data so you can continue reading abilities, stats, and builds offline.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I change the app language?</summary>
+        <div class="faq-content">
+          <p>
+            You can change the language at any time by tapping the <strong>Language selector icon (🌐)</strong> in the top-right corner of the navigation bar. The app supports English, Ukrainian, Spanish, Chinese, Russian, Portuguese, German, and more.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Are hero facets, innate abilities, and Aghanim's upgrades included?</summary>
+        <div class="faq-content">
+          <p>
+            Yes. Every hero breakdown includes their innate abilities, available Facet modifiers, Aghanim's Scepter upgrades, Aghanim's Shard enhancements, and the complete 10/15/20/25 level talent tree.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What devices and iOS versions are supported?</summary>
+        <div class="faq-content">
+          <p>
+            Dota 2 Wiki is designed and optimized for:
+          </p>
+          <ul>
+            <li><strong>iPhone:</strong> iOS 16.0 or later (including iPhone 14 Pro, 15, 16 Pro Dynamic Island and full-bleed displays)</li>
+            <li><strong>iPad:</strong> iPadOS 16.0 or later with multi-column layout support</li>
+            <li><strong>Mac:</strong> macOS 13.0 or later on Apple Silicon (M1/M2/M3/M4) Macs</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does the app collect or track my personal data?</summary>
+        <div class="faq-content">
+          <p>
+            <strong>No.</strong> We respect your privacy. Dota 2 Wiki does not require account creation, does not use tracking cookies, and does not include third-party advertising SDKs or data brokers. For full details, please check our <a href="privacy-policy.html">Privacy Policy</a>.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is Dota 2 Wiki affiliated with or sponsored by Valve Corporation?</summary>
+        <div class="faq-content">
+          <p>
+            No. Dota 2 Wiki is an independent, fan-created reference application. Dota 2 and all related trademarks, logos, and character designs are the property of <strong>Valve Corporation</strong>.
+          </p>
+        </div>
+      </details>
+
+      <!-- App Metadata Box -->
+      <div class="app-meta-box">
+        <div class="app-meta-item">
+          <span class="app-meta-label">App Version</span>
+          <span class="app-meta-value">1.0.0</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Platforms</span>
+          <span class="app-meta-value">iOS &bull; iPadOS &bull; macOS</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Support Contact</span>
+          <span class="app-meta-value"><a href="mailto:serhii.londar@gmail.com" style="color: var(--accent-gold); text-decoration: none;">serhii.londar@gmail.com</a></span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Developer</span>
+          <span class="app-meta-value">Serhii Londar</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="disclaimer-box">
+        <strong>Valve Non-Affiliation Disclaimer:</strong> Dota 2 and all related trademarks, character names, icons, and game assets referenced by this app are the intellectual property of <strong>Valve Corporation</strong>. This fan-made reference application is not affiliated with, endorsed by, or sponsored by Valve Corporation.
+      </div>
+
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="logo-group" style="margin-bottom: 12px;">
+            <img src="assets/app_icon.png" alt="Dota 2 Wiki Logo" class="logo-img" style="width: 28px; height: 28px;">
+            <span class="logo-text" style="font-size: 16px;">DOTA 2 WIKI</span>
+          </div>
+          <p>
+            An unofficial reference app built for Dota 2 enthusiasts, competitors, and new players worldwide. Available on iPhone and iPad.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#showcase">Screenshots</a></li>
+            <li><a href="https://apps.apple.com" target="_blank" rel="noopener">App Store</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="support.html" style="color: var(--accent-gold);">Support & Help</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="mailto:serhii.londar@gmail.com">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Serhii Londar. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
