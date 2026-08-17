@@ -203,6 +203,298 @@
       font-weight: 500;
       color: var(--text-primary);
     }
+
+    /* ── Interactive Ticket Form ── */
+    .ticket-section {
+      max-width: 820px;
+      margin: 0 auto 70px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .ticket-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-gradient);
+    }
+    .ticket-header {
+      margin-bottom: 24px;
+    }
+    .ticket-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ticket-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .ticket-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+    .form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .ticket-submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--primary-gradient);
+      border: none;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .ticket-submit-btn:hover:not(:disabled) {
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.45);
+      transform: translateY(-1px);
+    }
+    .ticket-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .form-status {
+      display: none;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .form-status.success {
+      display: block;
+      background: rgba(46, 204, 113, 0.12);
+      border: 1px solid rgba(46, 204, 113, 0.4);
+      color: #2ecc71;
+    }
+    .form-status.error {
+      display: block;
+      background: rgba(231, 76, 60, 0.12);
+      border: 1px solid rgba(231, 76, 60, 0.4);
+      color: #ff6b6b;
+    }
+    .form-status a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: underline;
+      margin-left: 6px;
+    }
+
+    /* ── Image Upload Dropzone & Previews ── */
+    .image-upload-zone {
+      background: rgba(0, 0, 0, 0.25);
+      border: 2px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+    .image-upload-zone.dragover {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.08);
+    }
+    .upload-prompt {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .upload-icon {
+      font-size: 28px;
+      opacity: 0.85;
+    }
+    .upload-text {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .upload-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .image-preview-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .image-preview-item {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 220px;
+      overflow: hidden;
+    }
+    .image-preview-item img {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .image-preview-info {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+    .image-preview-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .image-preview-size {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .image-remove-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-secondary);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .image-remove-btn:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    /* ── Ticket Success State ── */
+    .ticket-success-card {
+      text-align: center;
+      padding: 30px 20px 20px;
+      animation: fadeInSuccess 0.35s ease;
+    }
+    @keyframes fadeInSuccess {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .success-icon-badge {
+      font-size: 52px;
+      margin-bottom: 16px;
+      display: inline-block;
+      filter: drop-shadow(0 4px 12px rgba(46, 204, 113, 0.3));
+    }
+    .ticket-success-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .success-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    .ticket-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-highlight);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+    }
+    .status-badge {
+      color: #2ecc71;
+      font-weight: 600;
+    }
+    .ticket-success-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
@@ -271,7 +563,7 @@
             Encountered a layout issue, rendering bug, or crash? Please let us know the details so we can fix it promptly in the next App Store update.
           </p>
         </div>
-        <a href="mailto:serhii.londar@gmail.com?subject=DevTo%20Bug%20Report" class="support-card-btn">
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('bug')">
           Report an Issue
         </a>
       </div>
@@ -285,12 +577,115 @@
             Have an idea for a new reading feature, theme, syntax highlighter improvement, or iPad widget? We'd love to hear your feedback!
           </p>
         </div>
-        <a href="mailto:serhii.londar@gmail.com?subject=DevTo%20Feature%20Suggestion" class="support-card-btn">
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('enhancement')">
           Suggest Feature
         </a>
       </div>
 
     </div>
+
+    <!-- ── Interactive Support & Feedback Form ─────────────────────────────── -->
+    <section class="ticket-section" id="ticket-form">
+      <div class="ticket-header">
+        <h2>
+          <span>📋</span> Submit a Ticket or Feedback
+        </h2>
+        <p>
+          Send bug reports, reading glitch notices, or feature suggestions directly to our tracker. You don't need a GitHub account to submit.
+        </p>
+      </div>
+
+      <form id="supportTicketForm" class="ticket-form">
+        <!-- Hidden App Identifier -->
+        <input type="hidden" id="appField" value="dev-to">
+
+        <div class="form-row">
+          <!-- Report Type -->
+          <div class="form-group">
+            <label for="reportType">Report Type *</label>
+            <select id="reportType" required>
+              <option value="bug">🐛 Bug / Crash Report</option>
+              <option value="enhancement">💡 Feature / Widget Request</option>
+              <option value="documentation">📖 Markdown / Syntax Highlighting Issue</option>
+              <option value="question">❓ Question / General Help</option>
+            </select>
+          </div>
+
+          <!-- Contact Email -->
+          <div class="form-group">
+            <label for="userEmail">Your Email (Optional)</label>
+            <input type="email" id="userEmail" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <!-- Subject / Title -->
+        <div class="form-group">
+          <label for="issueTitle">Subject / Summary *</label>
+          <input type="text" id="issueTitle" placeholder="e.g., Code block formatting glitch, Add OLED dark theme..." required>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="issueDescription">Description & Details *</label>
+          <textarea id="issueDescription" rows="5" placeholder="Please describe the issue in detail or explain your feature request..." required></textarea>
+        </div>
+
+        <!-- Image / Screenshot Attachments -->
+        <div class="form-group">
+          <label>Attachments & Screenshots (Optional, max 3)</label>
+          <div class="image-upload-zone" id="imageDropzone">
+            <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp" multiple style="display: none;">
+            <div class="upload-prompt" id="uploadPrompt">
+              <span class="upload-icon">📸</span>
+              <div class="upload-text">
+                <strong>Click to browse</strong> or drag &amp; drop screenshots here
+                <span class="upload-hint">PNG, JPG, or WebP (up to 5MB each, max 3 files)</span>
+              </div>
+            </div>
+            <div id="imagePreviewList" class="image-preview-list"></div>
+          </div>
+        </div>
+
+        <!-- Form Actions & Submission Status -->
+        <div class="form-actions">
+          <button type="submit" id="submitTicketBtn" class="ticket-submit-btn">
+            <span>Submit Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Tagged automatically with <code>app:dev-to</code> &bull; <code>status:created</code></span>
+        </div>
+
+        <div id="ticketStatus" class="form-status"></div>
+      </form>
+
+      <!-- Dedicated Ticket Success Card -->
+      <div id="ticketSuccessCard" class="ticket-success-card" style="display: none;">
+        <div class="success-icon-badge">🎉</div>
+        <h3>Ticket Successfully Created!</h3>
+        <p class="success-subtitle">
+          Your ticket has been recorded in our GitHub issue tracker.
+        </p>
+        <div class="ticket-meta-pill">
+          <span>Ticket:</span> <strong id="createdTicketNumber">#1</strong> &bull; <span class="status-badge">Status: Created</span>
+        </div>
+        <div class="ticket-success-actions">
+          <a id="createdTicketLink" href="#" target="_blank" rel="noopener" class="ticket-submit-btn">
+            <span>View Issue on GitHub Tracker</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+          <button type="button" id="resetTicketFormBtn" class="support-card-btn">
+            + Submit Another Ticket
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- FAQ Section -->
     <section class="faq-section">
@@ -405,5 +800,213 @@
     </div>
   </footer>
 
+  <script>
+    // Configuration: Cloudflare Worker URL
+    const SUPPORT_API_ENDPOINT = "https://landing-pages-support-api.serhii-londar.workers.dev";
+
+    const form = document.getElementById('supportTicketForm');
+    const submitBtn = document.getElementById('submitTicketBtn');
+    const statusBox = document.getElementById('ticketStatus');
+    const successCard = document.getElementById('ticketSuccessCard');
+    const resetBtn = document.getElementById('resetTicketFormBtn');
+    const createdTicketNumber = document.getElementById('createdTicketNumber');
+    const createdTicketLink = document.getElementById('createdTicketLink');
+
+    // Image Upload State
+    const imageInput = document.getElementById('imageInput');
+    const dropzone = document.getElementById('imageDropzone');
+    const previewList = document.getElementById('imagePreviewList');
+    let attachedImages = []; // { name, type, size, base64 }
+
+    // Dropzone Drag & Drop
+    if (dropzone && imageInput) {
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+      dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('dragover');
+      });
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        if (e.dataTransfer.files) {
+          handleFiles(e.dataTransfer.files);
+        }
+      });
+      imageInput.addEventListener('change', (e) => {
+        if (e.target.files) {
+          handleFiles(e.target.files);
+        }
+      });
+    }
+
+    function handleFiles(files) {
+      const remainingSlots = 3 - attachedImages.length;
+      if (remainingSlots <= 0) {
+        alert("Maximum 3 image attachments allowed per ticket.");
+        return;
+      }
+
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+      filesToProcess.forEach(file => {
+        if (!file.type.startsWith('image/')) {
+          alert(`File "${file.name}" is not a valid image format.`);
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`File "${file.name}" exceeds the 5MB size limit.`);
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imgObj = {
+            name: file.name,
+            type: file.type,
+            size: (file.size / 1024).toFixed(1) + ' KB',
+            base64: e.target.result
+          };
+          attachedImages.push(imgObj);
+          renderImagePreviews();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderImagePreviews() {
+      if (!previewList) return;
+      previewList.innerHTML = '';
+
+      attachedImages.forEach((img, idx) => {
+        const item = document.createElement('div');
+        item.className = 'image-preview-item';
+        item.innerHTML = `
+          <img src="${img.base64}" alt="${img.name}">
+          <div class="image-preview-info">
+            <span class="image-preview-name" title="${img.name}">${img.name}</span>
+            <span class="image-preview-size">${img.size}</span>
+          </div>
+          <button type="button" class="image-remove-btn" data-idx="${idx}" title="Remove image">&times;</button>
+        `;
+        previewList.appendChild(item);
+      });
+
+      previewList.querySelectorAll('.image-remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          attachedImages.splice(idx, 1);
+          renderImagePreviews();
+        });
+      });
+    }
+
+    // Function to trigger form scroll and pre-select report type from support cards
+    function selectReportType(type) {
+      const reportTypeSelect = document.getElementById('reportType');
+      const titleInput = document.getElementById('issueTitle');
+      const ticketSection = document.getElementById('ticket-form');
+
+      if (successCard && successCard.style.display !== 'none') {
+        resetFormToInitial();
+      }
+
+      if (reportTypeSelect) {
+        reportTypeSelect.value = type;
+      }
+
+      if (ticketSection) {
+        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      setTimeout(() => {
+        if (titleInput) {
+          titleInput.focus();
+        }
+      }, 450);
+    }
+
+    function resetFormToInitial() {
+      if (form) form.reset();
+      attachedImages = [];
+      renderImagePreviews();
+      document.getElementById('appField').value = 'dev-to';
+      if (form) form.style.display = 'flex';
+      if (successCard) successCard.style.display = 'none';
+      if (statusBox) statusBox.style.display = 'none';
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        resetFormToInitial();
+        const ticketSection = document.getElementById('ticket-form');
+        if (ticketSection) ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const app = document.getElementById('appField').value;
+        const reportType = document.getElementById('reportType').value;
+        const title = document.getElementById('issueTitle').value.trim();
+        const email = document.getElementById('userEmail').value.trim();
+        const description = document.getElementById('issueDescription').value.trim();
+
+        if (!title || !description) return;
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span>Creating Ticket...</span>`;
+        statusBox.className = 'form-status';
+        statusBox.style.display = 'none';
+
+        try {
+          const response = await fetch(SUPPORT_API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              app: app,
+              reportType: reportType,
+              title: title,
+              email: email,
+              description: description,
+              systemInfo: navigator.userAgent,
+              images: attachedImages
+            })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            if (createdTicketNumber) createdTicketNumber.textContent = `#${data.issueNumber || ''}`;
+            if (createdTicketLink) createdTicketLink.href = data.issueUrl || `https://github.com/serhii-londar/landing-pages/issues`;
+            
+            form.style.display = 'none';
+            successCard.style.display = 'block';
+            successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            throw new Error(data.error || "Failed to submit ticket");
+          }
+        } catch (err) {
+          const fallbackLabels = encodeURIComponent(`app:${app},${reportType},status:created`);
+          const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
+          const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
+          const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
+
+          statusBox.className = 'form-status error';
+          statusBox.innerHTML = `⚠️ Support API could not be reached (${err.message}). <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly on GitHub →</a> or email <a href="mailto:serhii.londar@gmail.com">serhii.londar@gmail.com</a>.`;
+          statusBox.style.display = 'block';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<span>Submit Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>`;
+        }
+      });
+    }
+  </script>
 </body>
 </html>
