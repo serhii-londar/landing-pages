@@ -633,15 +633,15 @@
         <!-- Image / Screenshot Attachments -->
         <div class="form-group">
           <label>Attachments & Screenshots (Optional, max 3)</label>
-          <div class="image-upload-zone" id="imageDropzone">
+          <div class="image-upload-zone" id="imageDropzone" style="cursor: pointer;">
             <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp, image/gif" multiple style="display: none;">
-            <label for="imageInput" class="upload-prompt" id="uploadPrompt" style="cursor: pointer; display: flex;">
+            <div class="upload-prompt" id="uploadPrompt">
               <span class="upload-icon">📸</span>
               <div class="upload-text">
-                <strong>Click to browse</strong> or drag &amp; drop screenshots here
+                <strong>Click to browse</strong> or drag &amp; drop screenshots here (or paste with Cmd+V)
                 <span class="upload-hint">PNG, JPG, WebP, or GIF (up to 5MB each, max 3 files)</span>
               </div>
-            </label>
+            </div>
             <div id="imagePreviewList" class="image-preview-list"></div>
           </div>
         </div>
@@ -818,8 +818,14 @@
     const previewList = document.getElementById('imagePreviewList');
     let attachedImages = []; // { name, type, size, base64 }
 
-    // Dropzone Drag & Drop & File Handling
+    // Dropzone Click, Drag & Drop, and Clipboard Paste
     if (dropzone && imageInput) {
+      dropzone.addEventListener('click', (e) => {
+        if (!e.target.closest('.image-remove-btn') && !e.target.closest('.image-preview-item')) {
+          imageInput.click();
+        }
+      });
+
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropzone.addEventListener(eventName, (e) => {
           e.preventDefault();
@@ -849,6 +855,13 @@
       imageInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files.length > 0) {
           handleFiles(e.target.files);
+        }
+      });
+
+      // Support Clipboard paste (Cmd+V / Ctrl+V)
+      window.addEventListener('paste', (e) => {
+        if (e.clipboardData && e.clipboardData.files && e.clipboardData.files.length > 0) {
+          handleFiles(e.clipboardData.files);
         }
       });
     }

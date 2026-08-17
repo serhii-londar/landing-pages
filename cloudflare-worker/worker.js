@@ -77,8 +77,13 @@ export default {
           if (!img || !img.base64) continue;
 
           try {
-            // Strip data:image/...;base64, prefix if present
-            const cleanBase64 = img.base64.replace(/^data:image\/[a-zA-Z0-9+.-]+;base64,/, '');
+            // Extract pure base64 string safely regardless of mime type prefix
+            const cleanBase64 = (img.base64 && img.base64.includes(";base64,"))
+              ? img.base64.split(";base64,")[1]
+              : (img.base64 || "");
+
+            if (!cleanBase64) continue;
+
             const rawExt = (img.name && img.name.includes('.')) ? img.name.split('.').pop().toLowerCase() : 'png';
             const safeExt = ['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(rawExt) ? rawExt : 'png';
             const safeFileName = `ticket-${Date.now()}-${i + 1}.${safeExt}`;
@@ -94,22 +99,22 @@ export default {
               },
               body: JSON.stringify({
                 message: `Upload support attachment: ${safeFileName}`,
-                content: cleanBase64,
+                content: cleanBase64.trim(),
                 branch: env.GITHUB_BRANCH || "main"
               })
             });
 
             if (uploadRes.ok) {
               const uploadData = await uploadRes.json();
-              // Use raw GitHub content URL for direct image embedding
               const rawUrl = uploadData.content?.download_url || 
                 `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${env.GITHUB_BRANCH || "main"}/${filePath}`;
               uploadedImageUrls.push({ name: img.name || safeFileName, url: rawUrl });
             } else {
-              console.warn("Image upload skipped / failed:", await uploadRes.text());
+              const errBody = await uploadRes.text();
+              console.error(`GitHub Contents upload failed (HTTP ${uploadRes.status}): ${errBody}. Ensure GITHUB_TOKEN has 'Contents: Read and write' permission.`);
             }
           } catch (imgErr) {
-            console.warn("Failed to process image attachment:", imgErr);
+            console.error("Failed to process image attachment:", imgErr);
           }
         }
       }
