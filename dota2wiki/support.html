@@ -415,7 +415,155 @@
       text-decoration: underline;
       margin-left: 6px;
     }
-  </style>
+
+    /* ── Image Upload Dropzone & Previews ── */
+    .image-upload-zone {
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px dashed var(--line-subtle);
+      border-radius: 10px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+    .image-upload-zone.dragover {
+      border-color: var(--accent-gold);
+      background: rgba(230, 175, 46, 0.08);
+    }
+    .upload-prompt {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .upload-icon {
+      font-size: 28px;
+      opacity: 0.85;
+    }
+    .upload-text {
+      font-size: 13px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .upload-hint {
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+    .image-preview-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .image-preview-item {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line-subtle);
+      border-radius: 8px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 220px;
+      overflow: hidden;
+    }
+    .image-preview-item img {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .image-preview-info {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+    .image-preview-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .image-preview-size {
+      font-size: 10px;
+      color: var(--text-faint);
+    }
+    .image-remove-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-muted);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .image-remove-btn:hover {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    /* ── Ticket Success State ── */
+    .ticket-success-card {
+      text-align: center;
+      padding: 30px 20px 20px;
+      animation: fadeInSuccess 0.35s ease;
+    }
+    @keyframes fadeInSuccess {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .success-icon-badge {
+      font-size: 52px;
+      margin-bottom: 16px;
+      display: inline-block;
+      filter: drop-shadow(0 4px 12px rgba(46, 204, 113, 0.3));
+    }
+    .ticket-success-card h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .success-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .ticket-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line-highlight);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 28px;
+    }
+    .status-badge {
+      color: #2ecc71;
+      font-weight: 600;
+    }
+    .ticket-success-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 </head>
 
 <body>
@@ -557,6 +705,22 @@
             required></textarea>
         </div>
 
+        <!-- Image / Screenshot Attachments -->
+        <div class="form-group">
+          <label>Attachments & Screenshots (Optional, max 3)</label>
+          <div class="image-upload-zone" id="imageDropzone">
+            <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp" multiple style="display: none;">
+            <div class="upload-prompt" id="uploadPrompt">
+              <span class="upload-icon">📸</span>
+              <div class="upload-text">
+                <strong>Click to browse</strong> or drag &amp; drop screenshots here
+                <span class="upload-hint">PNG, JPG, or WebP (up to 5MB each, max 3 files)</span>
+              </div>
+            </div>
+            <div id="imagePreviewList" class="image-preview-list"></div>
+          </div>
+        </div>
+
         <!-- Form Actions & Submission Status -->
         <div class="form-actions">
           <button type="submit" id="submitTicketBtn" class="ticket-submit-btn">
@@ -573,6 +737,31 @@
 
         <div id="ticketStatus" class="form-status"></div>
       </form>
+
+      <!-- Dedicated Ticket Success Card -->
+      <div id="ticketSuccessCard" class="ticket-success-card" style="display: none;">
+        <div class="success-icon-badge">🎉</div>
+        <h3>Ticket Successfully Created!</h3>
+        <p class="success-subtitle">
+          Your ticket has been recorded in our GitHub issue tracker.
+        </p>
+        <div class="ticket-meta-pill">
+          <span>Ticket:</span> <strong id="createdTicketNumber">#1</strong> &bull; <span class="status-badge">Status: Created</span>
+        </div>
+        <div class="ticket-success-actions">
+          <a id="createdTicketLink" href="#" target="_blank" rel="noopener" class="ticket-submit-btn">
+            <span>View Issue on GitHub Tracker</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+          <button type="button" id="resetTicketFormBtn" class="support-card-btn">
+            + Submit Another Ticket
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- FAQ Section -->
@@ -737,12 +926,111 @@
     const form = document.getElementById('supportTicketForm');
     const submitBtn = document.getElementById('submitTicketBtn');
     const statusBox = document.getElementById('ticketStatus');
+    const successCard = document.getElementById('ticketSuccessCard');
+    const resetBtn = document.getElementById('resetTicketFormBtn');
+    const createdTicketNumber = document.getElementById('createdTicketNumber');
+    const createdTicketLink = document.getElementById('createdTicketLink');
+
+    // Image Upload State
+    const imageInput = document.getElementById('imageInput');
+    const dropzone = document.getElementById('imageDropzone');
+    const previewList = document.getElementById('imagePreviewList');
+    let attachedImages = []; // { name, type, size, base64 }
+
+    // Dropzone Drag & Drop
+    if (dropzone && imageInput) {
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+      dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('dragover');
+      });
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        if (e.dataTransfer.files) {
+          handleFiles(e.dataTransfer.files);
+        }
+      });
+      imageInput.addEventListener('change', (e) => {
+        if (e.target.files) {
+          handleFiles(e.target.files);
+        }
+      });
+    }
+
+    function handleFiles(files) {
+      const remainingSlots = 3 - attachedImages.length;
+      if (remainingSlots <= 0) {
+        alert("Maximum 3 image attachments allowed per ticket.");
+        return;
+      }
+
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+      filesToProcess.forEach(file => {
+        if (!file.type.startsWith('image/')) {
+          alert(`File "${file.name}" is not a valid image format.`);
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`File "${file.name}" exceeds the 5MB size limit.`);
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imgObj = {
+            name: file.name,
+            type: file.type,
+            size: (file.size / 1024).toFixed(1) + ' KB',
+            base64: e.target.result
+          };
+          attachedImages.push(imgObj);
+          renderImagePreviews();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderImagePreviews() {
+      if (!previewList) return;
+      previewList.innerHTML = '';
+
+      attachedImages.forEach((img, idx) => {
+        const item = document.createElement('div');
+        item.className = 'image-preview-item';
+        item.innerHTML = `
+          <img src="${img.base64}" alt="${img.name}">
+          <div class="image-preview-info">
+            <span class="image-preview-name" title="${img.name}">${img.name}</span>
+            <span class="image-preview-size">${img.size}</span>
+          </div>
+          <button type="button" class="image-remove-btn" data-idx="${idx}" title="Remove image">&times;</button>
+        `;
+        previewList.appendChild(item);
+      });
+
+      // Bind remove buttons
+      previewList.querySelectorAll('.image-remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          attachedImages.splice(idx, 1);
+          renderImagePreviews();
+        });
+      });
+    }
 
     // Function to trigger form scroll and pre-select report type from support cards
     function selectReportType(type) {
       const reportTypeSelect = document.getElementById('reportType');
       const titleInput = document.getElementById('issueTitle');
       const ticketSection = document.getElementById('ticket-form');
+
+      // If success card is currently showing, reset back to form
+      if (successCard && successCard.style.display !== 'none') {
+        resetFormToInitial();
+      }
 
       if (reportTypeSelect) {
         reportTypeSelect.value = type;
@@ -759,6 +1047,24 @@
       }, 450);
     }
 
+    function resetFormToInitial() {
+      if (form) form.reset();
+      attachedImages = [];
+      renderImagePreviews();
+      document.getElementById('appField').value = 'dota2wiki';
+      if (form) form.style.display = 'flex';
+      if (successCard) successCard.style.display = 'none';
+      if (statusBox) statusBox.style.display = 'none';
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        resetFormToInitial();
+        const ticketSection = document.getElementById('ticket-form');
+        if (ticketSection) ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
     if (form) {
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -773,7 +1079,7 @@
 
         // UI loading state
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Submitting...</span>`;
+        submitBtn.innerHTML = `<span>Creating Ticket...</span>`;
         statusBox.className = 'form-status';
         statusBox.style.display = 'none';
 
@@ -787,18 +1093,21 @@
               title: title,
               email: email,
               description: description,
-              systemInfo: navigator.userAgent
+              systemInfo: navigator.userAgent,
+              images: attachedImages
             })
           });
 
           const data = await response.json();
 
           if (response.ok && data.success) {
-            statusBox.className = 'form-status success';
-            statusBox.innerHTML = `✅ Ticket <strong>#${data.issueNumber || ''}</strong> has been logged! <a href="${data.issueUrl}" target="_blank" rel="noopener">View on GitHub →</a>`;
-            form.reset();
-            // restore hidden app default
-            document.getElementById('appField').value = app;
+            // Prominent UI Transition: Show dedicated Success Card
+            if (createdTicketNumber) createdTicketNumber.textContent = `#${data.issueNumber || ''}`;
+            if (createdTicketLink) createdTicketLink.href = data.issueUrl || `https://github.com/serhii-londar/landing-pages/issues`;
+            
+            form.style.display = 'none';
+            successCard.style.display = 'block';
+            successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
           } else {
             throw new Error(data.error || "Failed to create issue");
           }
@@ -811,6 +1120,7 @@
 
           statusBox.className = 'form-status error';
           statusBox.innerHTML = `⚠️ Support API could not be reached (${err.message}). <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly via GitHub Issues →</a> or email <a href="mailto:serhii.londar@gmail.com">serhii.londar@gmail.com</a>.`;
+          statusBox.style.display = 'block';
         } finally {
           submitBtn.disabled = false;
           submitBtn.innerHTML = `<span>Submit Ticket</span>

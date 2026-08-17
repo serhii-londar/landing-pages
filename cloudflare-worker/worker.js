@@ -28,7 +28,7 @@ export default {
 
     try {
       const data = await request.json();
-      const { app, reportType, title, email, description, systemInfo } = data;
+      const { app, reportType, title, email, description, systemInfo, images } = data;
 
       // 2. Validate input
       if (!title || !title.trim()) {
@@ -48,28 +48,11 @@ export default {
       const cleanApp = (app || "general").toLowerCase().replace(/[^a-z0-9-_]/g, "");
       const cleanType = (reportType || "bug").toLowerCase().replace(/[^a-z0-9-_]/g, "");
 
-      // 3. Assemble Labels (e.g. ['app:dota2wiki', 'bug', 'status:created'])
+      // 3. Assemble Labels
       const statusLabel = env.DEFAULT_STATUS_LABEL || "status:created";
       const labels = [`app:${cleanApp}`, cleanType, statusLabel];
 
-      // 4. Format GitHub Issue Body
-      const issueBody = `### 📋 Ticket Information
-- **Application:** \`${cleanApp}\`
-- **Report Type:** \`${cleanType}\`
-- **Status:** \`Created\`
-- **User Contact:** ${email && email.trim() ? `\`${email.trim()}\`` : '_Anonymous (No email provided)_'}
-- **Client System:** ${systemInfo ? `\`${systemInfo}\`` : '_Not available_'}
-- **Submitted At:** \`${new Date().toISOString()}\`
-
----
-
-### 📝 Description & Details
-${description.trim()}
-
----
-*Generated automatically via [App Support Form](https://github.com/${env.GITHUB_REPO_OWNER || "serhii-londar"}/${env.GITHUB_REPO_NAME || "landing-pages"})*`;
-
-      // 5. GitHub API Configuration
+      // 4. GitHub API Configuration
       const REPO_OWNER = env.GITHUB_REPO_OWNER || "serhii-londar";
       const REPO_NAME = env.GITHUB_REPO_NAME || "landing-pages";
       const GITHUB_TOKEN = env.GITHUB_TOKEN;
@@ -83,7 +66,78 @@ ${description.trim()}
         });
       }
 
-      // 6. Post issue to GitHub
+      // 5. Upload Image Attachments (if any) via GitHub Contents API
+      const uploadedImageUrls = [];
+      if (Array.isArray(images) && images.length > 0) {
+        const now = new Date();
+        const dateFolder = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+        
+        for (let i = 0; i < Math.min(images.length, 3); i++) {
+          const img = images[i];
+          if (!img || !img.base64) continue;
+
+          try {
+            // Strip data:image/...;base64, prefix if present
+            const cleanBase64 = img.base64.replace(/^data:image\/[a-zA-Z0-9+.-]+;base64,/, '');
+            const rawExt = (img.name && img.name.includes('.')) ? img.name.split('.').pop().toLowerCase() : 'png';
+            const safeExt = ['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(rawExt) ? rawExt : 'png';
+            const safeFileName = `ticket-${Date.now()}-${i + 1}.${safeExt}`;
+            const filePath = `attachments/${dateFolder}/${safeFileName}`;
+
+            const uploadRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`, {
+              method: "PUT",
+              headers: {
+                "Authorization": `Bearer ${GITHUB_TOKEN}`,
+                "Accept": "application/vnd.github+json",
+                "User-Agent": "LandingPages-Support-Worker",
+                "X-GitHub-Api-Version": "2022-11-28"
+              },
+              body: JSON.stringify({
+                message: `Upload support attachment: ${safeFileName}`,
+                content: cleanBase64,
+                branch: env.GITHUB_BRANCH || "main"
+              })
+            });
+
+            if (uploadRes.ok) {
+              const uploadData = await uploadRes.json();
+              // Use raw GitHub content URL for direct image embedding
+              const rawUrl = uploadData.content?.download_url || 
+                `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${env.GITHUB_BRANCH || "main"}/${filePath}`;
+              uploadedImageUrls.push({ name: img.name || safeFileName, url: rawUrl });
+            } else {
+              console.warn("Image upload skipped / failed:", await uploadRes.text());
+            }
+          } catch (imgErr) {
+            console.warn("Failed to process image attachment:", imgErr);
+          }
+        }
+      }
+
+      // 6. Format GitHub Issue Body
+      let attachmentsSection = "";
+      if (uploadedImageUrls.length > 0) {
+        attachmentsSection = `\n\n---\n\n### 📸 Attachments & Screenshots\n` +
+          uploadedImageUrls.map((img, idx) => `**Attachment ${idx + 1} (${img.name}):**\n![${img.name}](${img.url})`).join("\n\n");
+      }
+
+      const issueBody = `### 📋 Ticket Information
+- **Application:** \`${cleanApp}\`
+- **Report Type:** \`${cleanType}\`
+- **Status:** \`Created\`
+- **User Contact:** ${email && email.trim() ? `\`${email.trim()}\`` : '_Anonymous (No email provided)_'}
+- **Client System:** ${systemInfo ? `\`${systemInfo}\`` : '_Not available_'}
+- **Submitted At:** \`${new Date().toISOString()}\`
+
+---
+
+### 📝 Description & Details
+${description.trim()}${attachmentsSection}
+
+---
+*Generated automatically via [App Support Form](https://github.com/${REPO_OWNER}/${REPO_NAME})*`;
+
+      // 7. Post issue to GitHub
       const githubResponse = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues`, {
         method: "POST",
         headers: {
