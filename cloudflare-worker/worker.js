@@ -68,6 +68,8 @@ export default {
 
       // 5. Upload Image Attachments (if any) via GitHub Contents API
       const uploadedImageUrls = [];
+      const uploadErrors = [];
+
       if (Array.isArray(images) && images.length > 0) {
         const now = new Date();
         const dateFolder = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -82,7 +84,10 @@ export default {
               ? img.base64.split(";base64,")[1]
               : (img.base64 || "");
 
-            if (!cleanBase64) continue;
+            if (!cleanBase64) {
+              uploadErrors.push(`Image #${i + 1} (${img.name || 'unnamed'}) had empty base64 data.`);
+              continue;
+            }
 
             const rawExt = (img.name && img.name.includes('.')) ? img.name.split('.').pop().toLowerCase() : 'png';
             const safeExt = ['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(rawExt) ? rawExt : 'png';
@@ -111,36 +116,46 @@ export default {
               uploadedImageUrls.push({ name: img.name || safeFileName, url: rawUrl });
             } else {
               const errBody = await uploadRes.text();
-              console.error(`GitHub Contents upload failed (HTTP ${uploadRes.status}): ${errBody}. Ensure GITHUB_TOKEN has 'Contents: Read and write' permission.`);
+              const errMsg = `GitHub Contents API HTTP ${uploadRes.status}: ${errBody}`;
+              console.error(errMsg);
+              uploadErrors.push(`Failed to attach "${img.name || safeFileName}": ${errMsg}`);
             }
           } catch (imgErr) {
             console.error("Failed to process image attachment:", imgErr);
+            uploadErrors.push(`Error processing "${img.name || 'image'}": ${imgErr.message}`);
           }
         }
       }
 
-      // 6. Format GitHub Issue Body
-      let attachmentsSection = "";
-      if (uploadedImageUrls.length > 0) {
-        attachmentsSection = `\n\n---\n\n### 📸 Attachments & Screenshots\n` +
-          uploadedImageUrls.map((img, idx) => `**Attachment ${idx + 1} (${img.name}):**\n![${img.name}](${img.url})`).join("\n\n");
-      }
-
-      const issueBody = `### 📋 Ticket Information
-- **Application:** \`${cleanApp}\`
-- **Report Type:** \`${cleanType}\`
+      // 6. Build Issue Body with Attachments
+      let issueBody = `### 📋 Ticket Information
+- **Application:** \`${(app || "general").trim()}\`
+- **Report Type:** \`${(reportType || "bug")}\`
 - **Status:** \`Created\`
-- **User Contact:** ${email && email.trim() ? `\`${email.trim()}\`` : '_Anonymous (No email provided)_'}
-- **Client System:** ${systemInfo ? `\`${systemInfo}\`` : '_Not available_'}
+- **User Contact:** ${email && email.trim() ? `\`${email.trim()}\`` : "_Anonymous (No email provided)_"}
+- **Client System:** ${systemInfo && systemInfo.trim() ? `\`${systemInfo.trim()}\`` : "_Not available_"}
 - **Submitted At:** \`${new Date().toISOString()}\`
 
 ---
 
 ### 📝 Description & Details
-${description.trim()}${attachmentsSection}
+${description.trim()}`;
 
----
-*Generated automatically via [App Support Form](https://github.com/${REPO_OWNER}/${REPO_NAME})*`;
+      if (uploadedImageUrls.length > 0) {
+        issueBody += `\n\n---\n\n### 📸 Attachments & Screenshots\n`;
+        uploadedImageUrls.forEach((img, idx) => {
+          issueBody += `\n**Screenshot ${idx + 1} (${img.name})**:\n![${img.name}](${img.url})\n`;
+        });
+      }
+
+      if (uploadErrors.length > 0) {
+        issueBody += `\n\n---\n\n### ⚠️ Attachment Upload Diagnostics\n`;
+        uploadErrors.forEach(err => {
+          issueBody += `- ${err}\n`;
+        });
+      }
+
+      issueBody += `\n\n---\n*Generated automatically via [App Support Form](https://github.com/${REPO_OWNER}/${REPO_NAME})*`;
 
       // 7. Post issue to GitHub
       const githubResponse = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues`, {
