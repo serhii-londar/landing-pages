@@ -634,14 +634,14 @@
         <div class="form-group">
           <label>Attachments & Screenshots (Optional, max 3)</label>
           <div class="image-upload-zone" id="imageDropzone">
-            <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp" multiple style="display: none;">
-            <div class="upload-prompt" id="uploadPrompt">
+            <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp, image/gif" multiple style="display: none;">
+            <label for="imageInput" class="upload-prompt" id="uploadPrompt" style="cursor: pointer; display: flex;">
               <span class="upload-icon">📸</span>
               <div class="upload-text">
                 <strong>Click to browse</strong> or drag &amp; drop screenshots here
-                <span class="upload-hint">PNG, JPG, or WebP (up to 5MB each, max 3 files)</span>
+                <span class="upload-hint">PNG, JPG, WebP, or GIF (up to 5MB each, max 3 files)</span>
               </div>
-            </div>
+            </label>
             <div id="imagePreviewList" class="image-preview-list"></div>
           </div>
         </div>
@@ -818,30 +818,44 @@
     const previewList = document.getElementById('imagePreviewList');
     let attachedImages = []; // { name, type, size, base64 }
 
-    // Dropzone Drag & Drop
+    // Dropzone Drag & Drop & File Handling
     if (dropzone && imageInput) {
-      dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.classList.add('dragover');
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }, false);
       });
-      dropzone.addEventListener('dragleave', () => {
-        dropzone.classList.remove('dragover');
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, () => {
+          dropzone.classList.add('dragover');
+        }, false);
       });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, () => {
+          dropzone.classList.remove('dragover');
+        }, false);
+      });
+
       dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('dragover');
-        if (e.dataTransfer.files) {
-          handleFiles(e.dataTransfer.files);
+        const dt = e.dataTransfer;
+        if (dt && dt.files && dt.files.length > 0) {
+          handleFiles(dt.files);
         }
-      });
+      }, false);
+
       imageInput.addEventListener('change', (e) => {
-        if (e.target.files) {
+        if (e.target.files && e.target.files.length > 0) {
           handleFiles(e.target.files);
         }
       });
     }
 
     function handleFiles(files) {
+      if (!files || files.length === 0) return;
+
       const remainingSlots = 3 - attachedImages.length;
       if (remainingSlots <= 0) {
         alert("Maximum 3 image attachments allowed per ticket.");
@@ -850,8 +864,9 @@
 
       const filesToProcess = Array.from(files).slice(0, remainingSlots);
       filesToProcess.forEach(file => {
-        if (!file.type.startsWith('image/')) {
-          alert(`File "${file.name}" is not a valid image format.`);
+        const isImage = (file.type && file.type.startsWith('image/')) || /\.(png|jpe?g|webp|gif)$/i.test(file.name);
+        if (!isImage) {
+          alert(`File "${file.name}" is not a supported image format.`);
           return;
         }
         if (file.size > 5 * 1024 * 1024) {
@@ -863,7 +878,7 @@
         reader.onload = (e) => {
           const imgObj = {
             name: file.name,
-            type: file.type,
+            type: file.type || 'image/png',
             size: (file.size / 1024).toFixed(1) + ' KB',
             base64: e.target.result
           };
@@ -872,6 +887,8 @@
         };
         reader.readAsDataURL(file);
       });
+
+      if (imageInput) imageInput.value = '';
     }
 
     function renderImagePreviews() {
