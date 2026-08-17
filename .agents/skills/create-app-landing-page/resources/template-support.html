@@ -691,8 +691,8 @@
         <!-- Image / Screenshot Attachments -->
         <div class="form-group">
           <label>Attachments & Screenshots (Optional, max 3)</label>
-          <div class="image-upload-zone" id="imageDropzone" style="cursor: pointer;">
-            <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp, image/gif" multiple style="display: none;">
+          <div class="image-upload-zone" id="imageDropzone" style="cursor: pointer; position: relative;">
+            <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp, image/gif" multiple style="position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; z-index: -1;">
             <div class="upload-prompt" id="uploadPrompt">
               <span class="upload-icon">📸</span>
               <div class="upload-text">
@@ -869,30 +869,35 @@
     if (dropzone && imageInput) {
       dropzone.addEventListener('click', (e) => {
         if (!e.target.closest('.image-remove-btn') && !e.target.closest('.image-preview-item')) {
+          imageInput.value = '';
           imageInput.click();
         }
       });
 
-      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropzone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }, false);
+      imageInput.addEventListener('click', (e) => {
+        e.stopPropagation();
       });
 
       ['dragenter', 'dragover'].forEach(eventName => {
-        dropzone.addEventListener(eventName, () => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           dropzone.classList.add('dragover');
         }, false);
       });
 
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropzone.addEventListener(eventName, () => {
+      ['dragleave', 'dragend'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           dropzone.classList.remove('dragover');
         }, false);
       });
 
       dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('dragover');
         const dt = e.dataTransfer;
         if (dt && dt.files && dt.files.length > 0) {
           handleFiles(dt.files);
@@ -905,10 +910,28 @@
         }
       });
 
-      // Support Clipboard paste (Cmd+V / Ctrl+V)
+      // Safari & Chrome Clipboard Paste (Cmd+V / Ctrl+V)
       window.addEventListener('paste', (e) => {
-        if (e.clipboardData && e.clipboardData.files && e.clipboardData.files.length > 0) {
-          handleFiles(e.clipboardData.files);
+        if (!e.clipboardData) return;
+        const items = e.clipboardData.items;
+        const pastedFiles = [];
+
+        if (items && items.length > 0) {
+          for (let i = 0; i < items.length; i++) {
+            if (items[i].type && items[i].type.startsWith('image/')) {
+              const file = items[i].getAsFile();
+              if (file) pastedFiles.push(file);
+            }
+          }
+        } else if (e.clipboardData.files && e.clipboardData.files.length > 0) {
+          for (let i = 0; i < e.clipboardData.files.length; i++) {
+            pastedFiles.push(e.clipboardData.files[i]);
+          }
+        }
+
+        if (pastedFiles.length > 0) {
+          e.preventDefault();
+          handleFiles(pastedFiles);
         }
       });
     }
@@ -924,7 +947,8 @@
 
       const filesToProcess = Array.from(files).slice(0, remainingSlots);
       filesToProcess.forEach(file => {
-        const isImage = (file.type && file.type.startsWith('image/')) || /\.(png|jpe?g|webp|gif)$/i.test(file.name);
+        const isImage = (file.type && file.type.startsWith('image/')) || 
+                        /\.(png|jpe?g|webp|gif|bmp|heic)$/i.test(file.name);
         if (!isImage) {
           alert(`File "${file.name}" is not a supported image format.`);
           return;
@@ -936,19 +960,22 @@
 
         const reader = new FileReader();
         reader.onload = (e) => {
-          const imgObj = {
-            name: file.name,
-            type: file.type || 'image/png',
-            size: (file.size / 1024).toFixed(1) + ' KB',
-            base64: e.target.result
-          };
-          attachedImages.push(imgObj);
-          renderImagePreviews();
+          if (e.target && e.target.result) {
+            const imgObj = {
+              name: file.name || `screenshot-${Date.now()}.png`,
+              type: file.type || 'image/png',
+              size: (file.size / 1024).toFixed(1) + ' KB',
+              base64: e.target.result
+            };
+            attachedImages.push(imgObj);
+            renderImagePreviews();
+          }
+        };
+        reader.onerror = (err) => {
+          console.error("FileReader failed to read image:", err);
         };
         reader.readAsDataURL(file);
       });
-
-      if (imageInput) imageInput.value = '';
     }
 
     function renderImagePreviews() {
