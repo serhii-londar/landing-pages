@@ -64,6 +64,7 @@ Use the pre-built templates in the [resources](./resources/) directory as starti
 3. **Support & Help Center** (`support.html`):
    - Reference template: [template-support.html](./resources/template-support.html)
    - 3 contact channels: Direct Email, Bug Report, Feature Suggestion.
+   - **Interactive GitHub Issue Ticket Form**: Automatically submits issues to your GitHub repository tagged with `app:<slug>` and report type (`bug`, `enhancement`, `question`, `documentation`) via the serverless proxy in [`cloudflare-worker/`](../../cloudflare-worker/README.md). Includes automatic fallback to pre-filled GitHub deep links if the worker is offline.
    - Expandable FAQ accordion (`<details class="faq-item">`).
    - App Metadata Box (Version, Supported OS versions, Support Contact, Developer name).
 

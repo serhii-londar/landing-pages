@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,19 +9,23 @@
   <link rel="icon" type="image/png" href="assets/app_icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="index.css">
   <style>
     .support-hero {
       text-align: center;
       padding: 60px 0 40px;
     }
+
     .support-cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 24px;
       margin-bottom: 60px;
     }
+
     .support-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
@@ -33,11 +38,13 @@
       position: relative;
       overflow: hidden;
     }
+
     .support-card:hover {
       border-color: var(--border-highlight);
       transform: translateY(-2px);
       box-shadow: var(--shadow-card);
     }
+
     .support-card::before {
       content: "";
       position: absolute;
@@ -49,20 +56,24 @@
       opacity: 0;
       transition: opacity 0.25s ease;
     }
+
     .support-card:hover::before {
       opacity: 1;
     }
+
     .support-card-icon {
       font-size: 32px;
       margin-bottom: 16px;
       display: inline-block;
     }
+
     .support-card h3 {
       font-size: 1.25rem;
       font-weight: 700;
       margin-bottom: 12px;
       color: var(--text-primary);
     }
+
     .support-card p {
       color: var(--text-secondary);
       font-size: 0.95rem;
@@ -70,6 +81,7 @@
       margin-bottom: 24px;
       flex-grow: 1;
     }
+
     .support-card-btn {
       display: inline-flex;
       align-items: center;
@@ -85,24 +97,29 @@
       font-weight: 600;
       transition: all 0.2s ease;
     }
+
     .support-card-btn:hover {
       background: var(--primary);
       border-color: var(--primary);
       color: #fff;
     }
+
     .support-card-btn.primary {
       background: var(--primary-gradient);
       border-color: transparent;
       color: #fff;
     }
+
     .support-card-btn.primary:hover {
       box-shadow: 0 4px 16px rgba(59, 73, 223, 0.45);
       transform: translateY(-1px);
     }
+
     .faq-section {
       max-width: 900px;
       margin: 0 auto 80px;
     }
+
     .faq-title {
       font-size: 2rem;
       font-weight: 800;
@@ -110,6 +127,7 @@
       margin-bottom: 36px;
       letter-spacing: -0.02em;
     }
+
     .faq-item {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
@@ -118,9 +136,11 @@
       overflow: hidden;
       transition: border-color 0.2s ease;
     }
+
     .faq-item:hover {
       border-color: var(--border-highlight);
     }
+
     .faq-item summary {
       padding: 20px 24px;
       font-size: 1.1rem;
@@ -133,9 +153,11 @@
       align-items: center;
       user-select: none;
     }
+
     .faq-item summary::-webkit-details-marker {
       display: none;
     }
+
     .faq-item summary::after {
       content: "+";
       font-size: 22px;
@@ -143,9 +165,11 @@
       font-weight: 300;
       transition: transform 0.2s ease;
     }
+
     .faq-item[open] summary::after {
       content: "−";
     }
+
     .faq-content {
       padding: 0 24px 20px;
       color: var(--text-secondary);
@@ -155,13 +179,16 @@
       margin-top: 4px;
       padding-top: 16px;
     }
+
     .faq-content p {
       margin-bottom: 12px;
     }
+
     .faq-content ul {
       margin-left: 20px;
       margin-bottom: 12px;
     }
+
     .faq-content code {
       font-family: var(--font-mono);
       background: rgba(255, 255, 255, 0.08);
@@ -170,10 +197,12 @@
       font-size: 0.85rem;
       color: var(--primary-light);
     }
+
     .faq-content a {
       color: #818cf8;
       text-decoration: underline;
     }
+
     .app-meta-box {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-subtle);
@@ -186,24 +215,193 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .app-meta-item {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
+
     .app-meta-label {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
     }
+
     .app-meta-value {
       font-size: 0.95rem;
       font-weight: 500;
       color: var(--text-primary);
     }
+
+    /* ── Interactive Ticket Form ── */
+    .ticket-section {
+      max-width: 820px;
+      margin: 0 auto 70px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .ticket-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-gradient);
+    }
+
+    .ticket-header {
+      margin-bottom: 24px;
+    }
+
+    .ticket-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ticket-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .ticket-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .ticket-submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--primary-gradient);
+      border: none;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .ticket-submit-btn:hover:not(:disabled) {
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .ticket-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-status {
+      display: none;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .form-status.success {
+      display: block;
+      background: rgba(46, 204, 113, 0.12);
+      border: 1px solid rgba(46, 204, 113, 0.4);
+      color: #2ecc71;
+    }
+
+    .form-status.error {
+      display: block;
+      background: rgba(231, 76, 60, 0.12);
+      border: 1px solid rgba(231, 76, 60, 0.4);
+      color: #ff6b6b;
+    }
+
+    .form-status a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: underline;
+      margin-left: 6px;
+    }
   </style>
 </head>
+
 <body>
 
   <div class="ambient-glow glow-1"></div>
@@ -229,7 +427,7 @@
 
   <!-- Support Main Content -->
   <main class="container">
-    
+
     <!-- Support Hero -->
     <section class="support-hero">
       <div class="hero-badge" style="margin-bottom: 16px;">
@@ -240,20 +438,22 @@
         How Can We <span class="gradient-text">Help You?</span>
       </h1>
       <p class="hero-subtitle" style="margin: 0 auto; max-width: 650px;">
-        Find answers to frequently asked questions, learn how {{APP_NAME}} functions, or get in touch directly with support.
+        Find answers to frequently asked questions, learn how {{APP_NAME}} functions, or get in touch directly with
+        support.
       </p>
     </section>
 
     <!-- Support Contact Channels Grid -->
     <div class="support-cards-grid">
-      
+
       <!-- Email Support -->
       <div class="support-card">
         <div>
           <span class="support-card-icon">✉️</span>
           <h3>Direct Email Support</h3>
           <p>
-            Have a question, feedback, or need assistance using the app? Reach out directly via email. We typically respond within 24–48 hours.
+            Have a question, feedback, or need assistance using the app? Reach out directly via email. We typically
+            respond within 24–48 hours.
           </p>
         </div>
         <a href="mailto:{{SUPPORT_EMAIL}}?subject={{APP_NAME}}%20Support%20Request" class="support-card-btn primary">
@@ -267,7 +467,8 @@
           <span class="support-card-icon">🐛</span>
           <h3>Report a Bug or Issue</h3>
           <p>
-            Encountered a layout glitch, data error, or crash? Please let us know the details so we can fix it promptly in the next update.
+            Encountered a layout glitch, data error, or crash? Please let us know the details so we can fix it promptly
+            in the next update.
           </p>
         </div>
         <a href="mailto:{{SUPPORT_EMAIL}}?subject={{APP_NAME}}%20Bug%20Report" class="support-card-btn">
@@ -291,6 +492,73 @@
 
     </div>
 
+    <!-- ── Interactive Support & Feedback Form ─────────────────────────────── -->
+    <section class="ticket-section" id="ticket-form">
+      <div class="ticket-header">
+        <h2>
+          <span>📋</span> Submit a Ticket or Feedback
+        </h2>
+        <p>
+          Report a bug, request a new feature, or ask a question. Your submission will be recorded directly in our issue
+          tracker.
+        </p>
+      </div>
+
+      <form id="supportTicketForm" class="ticket-form">
+        <!-- Hidden App Identifier -->
+        <input type="hidden" id="appField" value="{{APP_SLUG}}">
+
+        <div class="form-row">
+          <!-- Report Type -->
+          <div class="form-group">
+            <label for="reportType">Report Type *</label>
+            <select id="reportType" required>
+              <option value="bug">🐛 Bug / Crash Report</option>
+              <option value="enhancement">💡 Feature / Enhancement Request</option>
+              <option value="documentation">📖 Documentation / Data Issue</option>
+              <option value="question">❓ Question / General Help</option>
+            </select>
+          </div>
+
+          <!-- Contact Email -->
+          <div class="form-group">
+            <label for="userEmail">Your Email (Optional)</label>
+            <input type="email" id="userEmail" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <!-- Subject / Title -->
+        <div class="form-group">
+          <label for="issueTitle">Subject / Summary *</label>
+          <input type="text" id="issueTitle" placeholder="e.g., Layout issue on iOS 18, Add dark mode toggle..."
+            required>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="issueDescription">Description & Details *</label>
+          <textarea id="issueDescription" rows="5"
+            placeholder="Please describe the issue in detail or explain your feature request..." required></textarea>
+        </div>
+
+        <!-- Form Actions & Submission Status -->
+        <div class="form-actions">
+          <button type="submit" id="submitTicketBtn" class="ticket-submit-btn">
+            <span>Submit Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Tagged automatically with
+            <code>app:{{APP_SLUG}}</code></span>
+        </div>
+
+        <div id="ticketStatus" class="form-status"></div>
+      </form>
+    </section>
+
     <!-- FAQ Section -->
     <section class="faq-section">
       <h2 class="faq-title">Frequently Asked Questions</h2>
@@ -308,7 +576,8 @@
         <summary>Does {{APP_NAME}} work without an internet connection?</summary>
         <div class="faq-content">
           <p>
-            <strong>Yes!</strong> All essential data and preferences are cached locally on your device storage so you can continue using core features offline.
+            <strong>Yes!</strong> All essential data and preferences are cached locally on your device storage so you
+            can continue using core features offline.
           </p>
         </div>
       </details>
@@ -329,7 +598,8 @@
         <summary>Does the app collect or track my personal data?</summary>
         <div class="faq-content">
           <p>
-            The app does not collect personal identity information. For full details, please review our <a href="privacy-policy.html">Privacy Policy</a>.
+            The app does not collect personal identity information. For full details, please review our <a
+              href="privacy-policy.html">Privacy Policy</a>.
           </p>
         </div>
       </details>
@@ -350,7 +620,8 @@
         </div>
         <div class="app-meta-item">
           <span class="app-meta-label">Support Contact</span>
-          <span class="app-meta-value"><a href="mailto:{{SUPPORT_EMAIL}}" style="color: var(--primary-light); text-decoration: none;">{{SUPPORT_EMAIL}}</a></span>
+          <span class="app-meta-value"><a href="mailto:{{SUPPORT_EMAIL}}"
+              style="color: var(--primary-light); text-decoration: none;">{{SUPPORT_EMAIL}}</a></span>
         </div>
         <div class="app-meta-item">
           <span class="app-meta-label">Developer</span>
@@ -371,7 +642,8 @@
           <span>{{APP_NAME}}</span>
         </div>
         <p class="footer-copy">
-          Designed and developed by <a href="https://github.com/serhii-londar" target="_blank" rel="noopener noreferrer">Serhii Londar</a>.
+          Designed and developed by <a href="https://github.com/serhii-londar" target="_blank"
+            rel="noopener noreferrer">Serhii Londar</a>.
         </p>
       </div>
 
@@ -386,5 +658,75 @@
     </div>
   </footer>
 
+  <script>
+    // Configuration: Replace with your deployed Cloudflare Worker URL
+    // (See cloudflare-worker/README.md for setup instructions)
+    const SUPPORT_API_ENDPOINT = "https://landing-pages-support-api.workers.dev";
+
+    const form = document.getElementById('supportTicketForm');
+    const submitBtn = document.getElementById('submitTicketBtn');
+    const statusBox = document.getElementById('ticketStatus');
+
+    if (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const app = document.getElementById('appField').value;
+        const reportType = document.getElementById('reportType').value;
+        const title = document.getElementById('issueTitle').value.trim();
+        const email = document.getElementById('userEmail').value.trim();
+        const description = document.getElementById('issueDescription').value.trim();
+
+        if (!title || !description) return;
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span>Submitting...</span>`;
+        statusBox.className = 'form-status';
+        statusBox.style.display = 'none';
+
+        try {
+          const response = await fetch(SUPPORT_API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              app: app,
+              reportType: reportType,
+              title: title,
+              email: email,
+              description: description,
+              systemInfo: navigator.userAgent
+            })
+          }).catch(err => ({ ok: false, error: err }));
+
+          if (response && response.ok) {
+            const data = await response.json();
+            statusBox.className = 'form-status success';
+            statusBox.innerHTML = `✅ Ticket <strong>#${data.issueNumber || ''}</strong> submitted successfully! <a href="${data.issueUrl}" target="_blank" rel="noopener">View on GitHub →</a>`;
+            form.reset();
+          } else {
+            // Fallback deep link
+            const fallbackLabels = encodeURIComponent(`app:${app},${reportType}`);
+            const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
+            const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
+            const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
+
+            statusBox.className = 'form-status error';
+            statusBox.innerHTML = `⚠️ Support API endpoint is not yet connected. <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly on GitHub →</a> or email <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a>.`;
+          }
+        } catch (err) {
+          statusBox.className = 'form-status error';
+          statusBox.innerHTML = `❌ Failed to submit: ${err.message}. Please email <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a> directly.`;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<span>Submit Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>`;
+        }
+      });
+    }
+  </script>
 </body>
+
 </html>
