@@ -485,7 +485,7 @@
             it in the next update.
           </p>
         </div>
-        <a href="mailto:serhii.londar@gmail.com?subject=Dota%202%20Wiki%20Bug%20Report" class="support-card-btn">
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('bug')">
           Report an Issue
         </a>
       </div>
@@ -500,8 +500,7 @@
             suggestions.
           </p>
         </div>
-        <a href="mailto:serhii.londar@gmail.com?subject=Dota%202%20Wiki%20Feature%20Suggestion"
-          class="support-card-btn">
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('enhancement')">
           Suggest Feature
         </a>
       </div>
@@ -732,13 +731,33 @@
   </footer>
 
   <script>
-    // Configuration: Replace with your deployed Cloudflare Worker URL
-    // (See cloudflare-worker/README.md for 2-minute setup instructions)
+    // Configuration: Cloudflare Worker URL
     const SUPPORT_API_ENDPOINT = "https://landing-pages-support-api.serhii-londar.workers.dev";
 
     const form = document.getElementById('supportTicketForm');
     const submitBtn = document.getElementById('submitTicketBtn');
     const statusBox = document.getElementById('ticketStatus');
+
+    // Function to trigger form scroll and pre-select report type from support cards
+    function selectReportType(type) {
+      const reportTypeSelect = document.getElementById('reportType');
+      const titleInput = document.getElementById('issueTitle');
+      const ticketSection = document.getElementById('ticket-form');
+
+      if (reportTypeSelect) {
+        reportTypeSelect.value = type;
+      }
+
+      if (ticketSection) {
+        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      setTimeout(() => {
+        if (titleInput) {
+          titleInput.focus();
+        }
+      }, 450);
+    }
 
     if (form) {
       form.addEventListener('submit', async function (e) {
@@ -759,41 +778,39 @@
         statusBox.style.display = 'none';
 
         try {
-          // If the worker endpoint hasn't been deployed yet, offer graceful fallback
-          if (SUPPORT_API_ENDPOINT.includes("your-worker-name") || SUPPORT_API_ENDPOINT.includes("landing-pages-support-api.workers.dev")) {
-            // Check if endpoint is reachable or mock/fallback
-            const response = await fetch(SUPPORT_API_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                app: app,
-                reportType: reportType,
-                title: title,
-                email: email,
-                description: description,
-                systemInfo: navigator.userAgent
-              })
-            }).catch(err => ({ ok: false, error: err }));
+          const response = await fetch(SUPPORT_API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              app: app,
+              reportType: reportType,
+              title: title,
+              email: email,
+              description: description,
+              systemInfo: navigator.userAgent
+            })
+          });
 
-            if (response && response.ok) {
-              const data = await response.json();
-              statusBox.className = 'form-status success';
-              statusBox.innerHTML = `✅ Ticket <strong>#${data.issueNumber || ''}</strong> has been logged! <a href="${data.issueUrl}" target="_blank" rel="noopener">View on GitHub →</a>`;
-              form.reset();
-            } else {
-              // Fallback to GitHub Issues URL pre-fill if worker is not yet live
-              const fallbackLabels = encodeURIComponent(`app:${app},${reportType}`);
-              const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
-              const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
-              const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
+          const data = await response.json();
 
-              statusBox.className = 'form-status error';
-              statusBox.innerHTML = `⚠️ Support API endpoint is undergoing maintenance or pending deployment. <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly via GitHub Issues →</a> or reach out to <a href="mailto:serhii.londar@gmail.com">serhii.londar@gmail.com</a>.`;
-            }
+          if (response.ok && data.success) {
+            statusBox.className = 'form-status success';
+            statusBox.innerHTML = `✅ Ticket <strong>#${data.issueNumber || ''}</strong> has been logged! <a href="${data.issueUrl}" target="_blank" rel="noopener">View on GitHub →</a>`;
+            form.reset();
+            // restore hidden app default
+            document.getElementById('appField').value = app;
+          } else {
+            throw new Error(data.error || "Failed to create issue");
           }
         } catch (err) {
+          // Fallback to GitHub Issues URL pre-fill if worker endpoint fails
+          const fallbackLabels = encodeURIComponent(`app:${app},${reportType}`);
+          const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
+          const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
+          const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
+
           statusBox.className = 'form-status error';
-          statusBox.innerHTML = `❌ Failed to submit ticket: ${err.message || 'Network error'}. Please email <a href="mailto:serhii.londar@gmail.com">serhii.londar@gmail.com</a> directly.`;
+          statusBox.innerHTML = `⚠️ Support API could not be reached (${err.message}). <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly via GitHub Issues →</a> or email <a href="mailto:serhii.londar@gmail.com">serhii.londar@gmail.com</a>.`;
         } finally {
           submitBtn.disabled = false;
           submitBtn.innerHTML = `<span>Submit Ticket</span>

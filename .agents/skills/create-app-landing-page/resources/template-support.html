@@ -471,7 +471,7 @@
             in the next update.
           </p>
         </div>
-        <a href="mailto:{{SUPPORT_EMAIL}}?subject={{APP_NAME}}%20Bug%20Report" class="support-card-btn">
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('bug')">
           Report an Issue
         </a>
       </div>
@@ -485,7 +485,7 @@
             Have an idea for a new feature, workflow enhancement, or widget? We'd love to hear your feedback!
           </p>
         </div>
-        <a href="mailto:{{SUPPORT_EMAIL}}?subject={{APP_NAME}}%20Feature%20Suggestion" class="support-card-btn">
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('enhancement')">
           Suggest Feature
         </a>
       </div>
@@ -667,6 +667,27 @@
     const submitBtn = document.getElementById('submitTicketBtn');
     const statusBox = document.getElementById('ticketStatus');
 
+    // Function to trigger form scroll and pre-select report type from support cards
+    function selectReportType(type) {
+      const reportTypeSelect = document.getElementById('reportType');
+      const titleInput = document.getElementById('issueTitle');
+      const ticketSection = document.getElementById('ticket-form');
+
+      if (reportTypeSelect) {
+        reportTypeSelect.value = type;
+      }
+
+      if (ticketSection) {
+        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      setTimeout(() => {
+        if (titleInput) {
+          titleInput.focus();
+        }
+      }, 450);
+    }
+
     if (form) {
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -696,26 +717,27 @@
               description: description,
               systemInfo: navigator.userAgent
             })
-          }).catch(err => ({ ok: false, error: err }));
+          });
 
-          if (response && response.ok) {
-            const data = await response.json();
+          const data = await response.json();
+
+          if (response.ok && data.success) {
             statusBox.className = 'form-status success';
             statusBox.innerHTML = `✅ Ticket <strong>#${data.issueNumber || ''}</strong> submitted successfully! <a href="${data.issueUrl}" target="_blank" rel="noopener">View on GitHub →</a>`;
             form.reset();
+            document.getElementById('appField').value = app;
           } else {
-            // Fallback deep link
-            const fallbackLabels = encodeURIComponent(`app:${app},${reportType}`);
-            const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
-            const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
-            const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
-
-            statusBox.className = 'form-status error';
-            statusBox.innerHTML = `⚠️ Support API endpoint is not yet connected. <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly on GitHub →</a> or email <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a>.`;
+            throw new Error(data.error || "Failed to submit ticket");
           }
         } catch (err) {
+          // Fallback deep link
+          const fallbackLabels = encodeURIComponent(`app:${app},${reportType}`);
+          const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
+          const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
+          const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
+
           statusBox.className = 'form-status error';
-          statusBox.innerHTML = `❌ Failed to submit: ${err.message}. Please email <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a> directly.`;
+          statusBox.innerHTML = `⚠️ Support API could not be reached (${err.message}). <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly on GitHub →</a> or email <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a>.`;
         } finally {
           submitBtn.disabled = false;
           submitBtn.innerHTML = `<span>Submit Ticket</span>
