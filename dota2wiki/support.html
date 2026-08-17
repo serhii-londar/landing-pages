@@ -568,7 +568,7 @@
             </svg>
           </button>
           <span style="font-size: 12px; color: var(--text-faint);">Tagged automatically with
-            <code>app:dota2wiki</code></span>
+            <code>app:dota2wiki</code> &bull; <code>status:created</code></span>
         </div>
 
         <div id="ticketStatus" class="form-status"></div>
@@ -804,7 +804,7 @@
           }
         } catch (err) {
           // Fallback to GitHub Issues URL pre-fill if worker endpoint fails
-          const fallbackLabels = encodeURIComponent(`app:${app},${reportType}`);
+          const fallbackLabels = encodeURIComponent(`app:${app},${reportType},status:created`);
           const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
           const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
           const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;

@@ -5,8 +5,8 @@ This Cloudflare Worker receives support ticket and feedback submissions from you
 ## Features
 - **Zero Frontend Secrets**: Your GitHub Personal Access Token (PAT) remains strictly secure inside Cloudflare Worker environment secrets.
 - **No GitHub Account Required for Users**: Mobile and web app users can submit bugs and feedback without needing a GitHub login.
-- **Automated Labeling**: Automatically tags issues with `app:<app-name>` (e.g. `app:dota2wiki`) and report type (`bug`, `enhancement`, `question`, `documentation`).
-- **Formatted Issue Markdown**: Includes client user agent, timestamp, optional contact email, and structured sections.
+- **Automated Multi-Labeling**: Automatically tags issues with `app:<app-name>` (e.g. `app:dota2wiki`), report type (`bug`, `enhancement`, `question`, `documentation`), and status (`status:created`).
+- **Formatted Issue Markdown**: Includes status line (`Status: Created`), client user agent, timestamp, optional contact email, and structured sections.
 - **CORS Support**: Pre-configured to support cross-origin requests from GitHub Pages.
 
 ---

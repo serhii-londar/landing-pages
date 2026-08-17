@@ -48,13 +48,15 @@ export default {
       const cleanApp = (app || "general").toLowerCase().replace(/[^a-z0-9-_]/g, "");
       const cleanType = (reportType || "bug").toLowerCase().replace(/[^a-z0-9-_]/g, "");
 
-      // 3. Assemble Labels (e.g. ['app:dota2wiki', 'bug'])
-      const labels = [`app:${cleanApp}`, cleanType];
+      // 3. Assemble Labels (e.g. ['app:dota2wiki', 'bug', 'status:created'])
+      const statusLabel = env.DEFAULT_STATUS_LABEL || "status:created";
+      const labels = [`app:${cleanApp}`, cleanType, statusLabel];
 
       // 4. Format GitHub Issue Body
       const issueBody = `### 📋 Ticket Information
 - **Application:** \`${cleanApp}\`
 - **Report Type:** \`${cleanType}\`
+- **Status:** \`Created\`
 - **User Contact:** ${email && email.trim() ? `\`${email.trim()}\`` : '_Anonymous (No email provided)_'}
 - **Client System:** ${systemInfo ? `\`${systemInfo}\`` : '_Not available_'}
 - **Submitted At:** \`${new Date().toISOString()}\`

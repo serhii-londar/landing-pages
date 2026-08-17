@@ -552,7 +552,7 @@
             </svg>
           </button>
           <span style="font-size: 0.8rem; color: var(--text-muted);">Tagged automatically with
-            <code>app:{{APP_SLUG}}</code></span>
+            <code>app:{{APP_SLUG}}</code> &bull; <code>status:created</code></span>
         </div>
 
         <div id="ticketStatus" class="form-status"></div>
@@ -731,7 +731,7 @@
           }
         } catch (err) {
           // Fallback deep link
-          const fallbackLabels = encodeURIComponent(`app:${app},${reportType}`);
+          const fallbackLabels = encodeURIComponent(`app:${app},${reportType},status:created`);
           const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
           const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
           const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
