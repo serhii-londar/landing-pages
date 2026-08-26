@@ -1,8 +1,8 @@
-# Terms of Service — Dota 2 Wiki
+# Terms of Service — Ancient Tome for Dota 2
 
-**Last updated: August 15, 2026**
+**Last updated: August 26, 2026**
 
-Please read these Terms of Service ("Terms") carefully before using the **Dota 2 Wiki** application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
+Please read these Terms of Service ("Terms") carefully before using the **Ancient Tome for Dota 2** application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
 
 ---
 
