@@ -1,8 +1,8 @@
-# Privacy Policy for Dota2wiki
+# Privacy Policy for Ancient Tome
 
 **Last updated: August 15, 2026**
 
-**Dota2wiki** ("the app", "we", or "us") is an unofficial, fan-made reference application providing Dota 2 hero, item, ability, and patch note information. This policy describes how data is handled when you use the app.
+**Ancient Tome** ("the app", "we", or "us") is an unofficial, fan-made reference application providing Dota 2 hero, item, ability, and patch note information. This policy describes how data is handled when you use the app.
 
 ---
 

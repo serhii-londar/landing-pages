@@ -1,8 +1,8 @@
-# Terms of Service — Ancient Tome for Dota 2
+# Terms of Service — Ancient Tome
 
 **Last updated: August 26, 2026**
 
-Please read these Terms of Service ("Terms") carefully before using the **Ancient Tome for Dota 2** application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
+Please read these Terms of Service ("Terms") carefully before using the **Ancient Tome** application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
 
 ---
 
