@@ -1,8 +1,8 @@
-# Terms of Service — CS2 Tricks
+# Terms of Use — CS2 Tricks
 
 **Last updated: 19 September 2026**
 
-Please read these Terms of Service ("Terms") carefully before using the **CS2 Tricks** application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
+Please read these Terms of Use ("Terms") carefully before using the **CS2 Tricks** application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
 
 ## 1. Intellectual property & fan content
 
