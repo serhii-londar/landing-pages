@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support & Help Center — CS2 Tricks</title>
+  <meta name="description"
+    content="Official support, FAQs, and help center for the CS2 Tricks app for iOS and iPadOS.">
+  <meta name="keywords" content="CS2 Tricks, Counter-Strike 2, CS2, nades, support, help, FAQ, iOS, iPadOS">
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .support-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+
+    .support-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .support-card {
+      background: var(--bg-card);
+      border: 1px solid var(--line-subtle);
+      border-radius: 14px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .support-card:hover {
+      border-color: var(--line-highlight);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .support-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .support-card:hover::before {
+      opacity: 1;
+    }
+
+    .support-card-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .support-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .support-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .support-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line-highlight);
+      color: var(--text-main);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .support-card-btn:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      color: #fff;
+    }
+
+    .support-card-btn.primary {
+      background: linear-gradient(135deg, #c23c2a 0%, #991f11 100%);
+      border-color: rgba(211, 60, 42, 0.5);
+      color: #fff;
+    }
+
+    .support-card-btn.primary:hover {
+      box-shadow: 0 4px 16px rgba(211, 60, 42, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .faq-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--line-subtle);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .faq-item:hover {
+      border-color: var(--line-highlight);
+    }
+
+    .faq-item summary {
+      padding: 20px 24px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      color: var(--text-main);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      font-size: 22px;
+      color: var(--accent-gold);
+      font-family: var(--font-body);
+      font-weight: 300;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] summary::after {
+      content: "−";
+      transform: rotate(0deg);
+    }
+
+    .faq-content {
+      padding: 0 24px 20px;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 4px;
+      padding-top: 16px;
+    }
+
+    .faq-content p {
+      margin-bottom: 12px;
+    }
+
+    .faq-content ul {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .faq-content code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--accent-gold);
+    }
+
+    .faq-content a {
+      color: var(--accent-ember);
+      text-decoration: none;
+    }
+
+    .faq-content a:hover {
+      text-decoration: underline;
+    }
+
+    .app-meta-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--line-subtle);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .app-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .app-meta-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-faint);
+    }
+
+    .app-meta-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    /* ── Interactive Ticket Form ── */
+    .ticket-section {
+      max-width: 820px;
+      margin: 0 auto 70px;
+      background: var(--bg-card);
+      border: 1px solid var(--line-subtle);
+      border-radius: 14px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .ticket-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+    }
+
+    .ticket-header {
+      margin-bottom: 24px;
+    }
+
+    .ticket-header h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ticket-header p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .ticket-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text-main);
+      text-transform: uppercase;
+      font-family: var(--font-display);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--line-subtle);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-size: 14px;
+      font-family: var(--font-body);
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 2px rgba(230, 175, 46, 0.2);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-faint);
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .ticket-submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #c23c2a 0%, #991f11 100%);
+      border: 1px solid rgba(211, 60, 42, 0.5);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .ticket-submit-btn:hover:not(:disabled) {
+      box-shadow: 0 4px 16px rgba(211, 60, 42, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .ticket-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-status {
+      display: none;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form-status.success {
+      display: block;
+      background: rgba(46, 204, 113, 0.12);
+      border: 1px solid rgba(46, 204, 113, 0.4);
+      color: #2ecc71;
+    }
+
+    .form-status.error {
+      display: block;
+      background: rgba(231, 76, 60, 0.12);
+      border: 1px solid rgba(231, 76, 60, 0.4);
+      color: #ff6b6b;
+    }
+
+    .form-status a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: underline;
+      margin-left: 6px;
+    }
+
+    /* ── Image Upload Dropzone & Previews ── */
+    .image-upload-zone {
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px dashed var(--line-subtle);
+      border-radius: 10px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+    .image-upload-zone.dragover {
+      border-color: var(--accent-gold);
+      background: rgba(230, 175, 46, 0.08);
+    }
+    .upload-prompt {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .upload-icon {
+      font-size: 28px;
+      opacity: 0.85;
+    }
+    .upload-text {
+      font-size: 13px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .upload-hint {
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+    .image-preview-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .image-preview-item {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line-subtle);
+      border-radius: 8px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 220px;
+      overflow: hidden;
+    }
+    .image-preview-item img {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .image-preview-info {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+    .image-preview-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .image-preview-size {
+      font-size: 10px;
+      color: var(--text-faint);
+    }
+    .image-remove-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-muted);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .image-remove-btn:hover {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    /* ── Ticket Success State ── */
+    .ticket-success-card {
+      text-align: center;
+      padding: 30px 20px 20px;
+      animation: fadeInSuccess 0.35s ease;
+    }
+    @keyframes fadeInSuccess {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .success-icon-badge {
+      font-size: 52px;
+      margin-bottom: 16px;
+      display: inline-block;
+      filter: drop-shadow(0 4px 12px rgba(46, 204, 113, 0.3));
+    }
+    .ticket-success-card h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .success-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .ticket-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line-highlight);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 28px;
+    }
+    .status-badge {
+      color: #2ecc71;
+      font-weight: 600;
+    }
+    .ticket-success-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- ── Navigation ───────────────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo-group">
+        <img src="assets/app_icon.png" alt="CS2 Tricks logo" class="logo-img">
+        <span class="logo-text">CS2 TRICKS</span>
+        <span class="logo-badge">Support</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">← Back to Home</a>
+        <a href="privacy-policy.html" class="nav-link">Privacy</a>
+        <a href="terms.html" class="nav-link">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Main Support Content ─────────────────────────────────────────────── -->
+  <main class="container">
+
+    <!-- Support Hero -->
+    <section class="support-hero">
+      <div class="hero-eyebrow">
+        <span>🛡️ Help & Customer Support</span>
+      </div>
+      <h1 class="hero-title" style="margin-bottom: 12px;">
+        How Can We <span>Help You?</span>
+      </h1>
+      <p class="hero-subtitle">
+        Find answers to frequently asked questions, learn how the app functions, or get in touch directly with our
+        support team.
+      </p>
+    </section>
+
+    <!-- Support Contact Channels Grid -->
+    <div class="support-cards-grid">
+
+      <!-- Email Support -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">✉️</span>
+          <h3>Direct Email Support</h3>
+          <p>
+            Have a question, feedback, or need assistance? Reach out directly via email. We typically respond within
+            24–48 hours.
+          </p>
+        </div>
+        <a href="mailto:serhii.londar@gmail.com?subject=Dota%202%20Wiki%20Support%20Request"
+          class="support-card-btn primary">
+          Email serhii.londar@gmail.com
+        </a>
+      </div>
+
+      <!-- Bug Reports & Feedback -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">🐛</span>
+          <h3>Report a Bug or Issue</h3>
+          <p>
+            Spotted a stat discrepancy, broken ability video, or UI glitch? Please let us know the details so we can fix
+            it in the next update.
+          </p>
+        </div>
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('bug')">
+          Report an Issue
+        </a>
+      </div>
+
+      <!-- Feature Requests -->
+      <div class="support-card">
+        <div>
+          <span class="support-card-icon">💡</span>
+          <h3>Feature Suggestions</h3>
+          <p>
+            Have an idea for a new feature, build calculator, or widget? We'd love to hear your thoughts and
+            suggestions.
+          </p>
+        </div>
+        <a href="#ticket-form" class="support-card-btn" onclick="selectReportType('enhancement')">
+          Suggest Feature
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ── Interactive Support & Feedback Form ─────────────────────────────── -->
+    <section class="ticket-section" id="ticket-form">
+      <div class="ticket-header">
+        <h2>
+          <span>📋</span> Submit a Ticket or Feedback
+        </h2>
+        <p>
+          Send bug reports, patch discrepancies, or feature requests directly to our tracker. You don't need a GitHub
+          account to submit.
+        </p>
+      </div>
+
+      <form id="supportTicketForm" class="ticket-form">
+        <!-- Hidden App Identifier -->
+        <input type="hidden" id="appField" value="cs2tricks">
+
+        <div class="form-row">
+          <!-- Report Type -->
+          <div class="form-group">
+            <label for="reportType">Report Type *</label>
+            <select id="reportType" required>
+              <option value="bug">🐛 Bug / Glitch Report</option>
+              <option value="enhancement">💡 Feature / Widget Suggestion</option>
+              <option value="documentation">📖 Patch Data / Stat Discrepancy</option>
+              <option value="question">❓ Question / General Help</option>
+            </select>
+          </div>
+
+          <!-- Contact Email -->
+          <div class="form-group">
+            <label for="userEmail">Your Email (Optional)</label>
+            <input type="email" id="userEmail" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <!-- Subject / Title -->
+        <div class="form-group">
+          <label for="issueTitle">Subject / Summary *</label>
+          <input type="text" id="issueTitle"
+            placeholder="e.g., Facet details missing for Ringmaster, Video playback lag..." required>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="issueDescription">Description & Details *</label>
+          <textarea id="issueDescription" rows="5"
+            placeholder="Please describe what happened, steps to reproduce, or details of your suggestion..."
+            required></textarea>
+        </div>
+
+        <!-- Image / Screenshot Attachments -->
+        <div class="form-group">
+          <label>Attachments & Screenshots (Optional, max 3)</label>
+          <div class="image-upload-zone" id="imageDropzone" style="cursor: pointer; position: relative;">
+            <input type="file" id="imageInput" accept="image/png, image/jpeg, image/webp, image/gif" multiple style="position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; z-index: -1;">
+            <div class="upload-prompt" id="uploadPrompt">
+              <span class="upload-icon">📸</span>
+              <div class="upload-text">
+                <strong>Click to browse</strong> or drag &amp; drop screenshots here (or paste with Cmd+V)
+                <span class="upload-hint">PNG, JPG, WebP, or GIF (up to 5MB each, max 3 files)</span>
+              </div>
+            </div>
+            <div id="imagePreviewList" class="image-preview-list"></div>
+          </div>
+        </div>
+
+        <!-- Form Actions & Submission Status -->
+        <div class="form-actions">
+          <button type="submit" id="submitTicketBtn" class="ticket-submit-btn">
+            <span>Submit Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+          <span style="font-size: 12px; color: var(--text-faint);">Tagged automatically with
+            <code>app:cs2tricks</code> &bull; <code>status:created</code></span>
+        </div>
+
+        <div id="ticketStatus" class="form-status"></div>
+      </form>
+
+      <!-- Dedicated Ticket Success Card -->
+      <div id="ticketSuccessCard" class="ticket-success-card" style="display: none;">
+        <div class="success-icon-badge">🎉</div>
+        <h3>Ticket Successfully Created!</h3>
+        <p class="success-subtitle">
+          Your ticket has been recorded in our GitHub issue tracker.
+        </p>
+        <div class="ticket-meta-pill">
+          <span>Ticket:</span> <strong id="createdTicketNumber">#1</strong> &bull; <span class="status-badge">Status: Created</span>
+        </div>
+        <div class="ticket-success-actions">
+          <a id="createdTicketLink" href="#" target="_blank" rel="noopener" class="ticket-submit-btn">
+            <span>View Issue on GitHub Tracker</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+          <button type="button" id="resetTicketFormBtn" class="support-card-btn">
+            + Submit Another Ticket
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <details class="faq-item" open>
+        <summary>How do I find a grenade lineup?</summary>
+        <div class="faq-content">
+          <p>
+            Open the <strong>Nades</strong> tab, pick a map, tap a yellow cluster on the minimap, then tap a green throw
+            position. If several nades share that spot, choose one from the list. The detail screen shows lineup images
+            you can pinch-zoom.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does CS2 Tricks work without an internet connection?</summary>
+        <div class="faq-content">
+          <p>
+            Maps, clusters, and lineup images load from <code>api.cs2tricks.com</code> / <code>cs2tricks.com</code>, so
+            you need a network for content. Filter choices and the last tab stay on device with UserDefaults and survive
+            relaunch.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I watch a demo video?</summary>
+        <div class="faq-content">
+          <p>
+            Some lineups include a Video tab. Playback uses an embedded YouTube player
+            (<code>youtube-nocookie.com</code>) with no autoplay. Skip Video if you do not want Google’s embed.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What devices and iOS versions are supported?</summary>
+        <div class="faq-content">
+          <p>
+            CS2 Tricks is designed for:
+          </p>
+          <ul>
+            <li><strong>iPhone:</strong> iOS 17.0 or later</li>
+            <li><strong>iPad:</strong> iPadOS 17.0 or later</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does the app collect or track my personal data?</summary>
+        <div class="faq-content">
+          <p>
+            <strong>No.</strong> CS2 Tricks does not require an account, does not use analytics SDKs, does not show ads,
+            and does not track you. Opening Video may let YouTube collect data under Google’s policy. See the
+            <a href="privacy-policy.html">privacy policy</a>.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is CS2 Tricks affiliated with or sponsored by Valve Corporation?</summary>
+        <div class="faq-content">
+          <p>
+            No. CS2 Tricks is an independent, fan-created companion. Counter-Strike, Counter-Strike 2, and CS2 are
+            trademarks of <strong>Valve Corporation</strong>.
+          </p>
+        </div>
+      </details>
+
+      <!-- App Metadata Box -->
+      <div class="app-meta-box">
+        <div class="app-meta-item">
+          <span class="app-meta-label">App Version</span>
+          <span class="app-meta-value">1.0.0</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Platforms</span>
+          <span class="app-meta-value">iOS &bull; iPadOS</span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Support Contact</span>
+          <span class="app-meta-value"><a href="mailto:serhii.londar@gmail.com"
+              style="color: var(--accent-gold); text-decoration: none;">serhii.londar@gmail.com</a></span>
+        </div>
+        <div class="app-meta-item">
+          <span class="app-meta-label">Developer</span>
+          <span class="app-meta-value">Serhii Londar</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="disclaimer-box">
+        <strong>Valve non-affiliation:</strong> CS2 Tricks is an unofficial fan-made companion. It is not affiliated with, endorsed by, or sponsored by Valve Corporation. Counter-Strike, Counter-Strike 2, and CS2 are trademarks of <strong>Valve Corporation</strong>.
+      </div>
+
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="logo-group" style="margin-bottom: 12px;">
+            <img src="assets/app_icon.png" alt="CS2 Tricks logo" class="logo-img" style="width: 28px; height: 28px;">
+            <span class="logo-text" style="font-size: 16px;">CS2 TRICKS</span>
+          </div>
+          <p>
+            An unofficial CS2 companion for browsing grenade lineups and map tricks on iPhone and iPad.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#showcase">Screenshots</a></li>
+            <li><a href="https://www.cs2tricks.com" target="_blank" rel="noopener">Website</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="support.html" style="color: var(--accent-gold);">Support & Help</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="mailto:serhii.londar@gmail.com">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Serhii Londar. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Configuration: Cloudflare Worker URL
+    const SUPPORT_API_ENDPOINT = "https://landing-pages-support-api.serhii-londar.workers.dev";
+
+    const form = document.getElementById('supportTicketForm');
+    const submitBtn = document.getElementById('submitTicketBtn');
+    const statusBox = document.getElementById('ticketStatus');
+    const successCard = document.getElementById('ticketSuccessCard');
+    const resetBtn = document.getElementById('resetTicketFormBtn');
+    const createdTicketNumber = document.getElementById('createdTicketNumber');
+    const createdTicketLink = document.getElementById('createdTicketLink');
+
+    // Image Upload State
+    const imageInput = document.getElementById('imageInput');
+    const dropzone = document.getElementById('imageDropzone');
+    const previewList = document.getElementById('imagePreviewList');
+    let attachedImages = []; // { name, type, size, base64 }
+
+    // Dropzone Click, Drag & Drop, and Clipboard Paste
+    if (dropzone && imageInput) {
+      dropzone.addEventListener('click', (e) => {
+        if (!e.target.closest('.image-remove-btn') && !e.target.closest('.image-preview-item')) {
+          imageInput.value = '';
+          imageInput.click();
+        }
+      });
+
+      imageInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('dragover');
+        }, false);
+      });
+
+      ['dragleave', 'dragend'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+        }, false);
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('dragover');
+        const dt = e.dataTransfer;
+        if (dt && dt.files && dt.files.length > 0) {
+          handleFiles(dt.files);
+        }
+      }, false);
+
+      imageInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          handleFiles(e.target.files);
+        }
+      });
+
+      // Safari & Chrome Clipboard Paste (Cmd+V / Ctrl+V)
+      window.addEventListener('paste', (e) => {
+        if (!e.clipboardData) return;
+        const items = e.clipboardData.items;
+        const pastedFiles = [];
+
+        if (items && items.length > 0) {
+          for (let i = 0; i < items.length; i++) {
+            if (items[i].type && items[i].type.startsWith('image/')) {
+              const file = items[i].getAsFile();
+              if (file) pastedFiles.push(file);
+            }
+          }
+        } else if (e.clipboardData.files && e.clipboardData.files.length > 0) {
+          for (let i = 0; i < e.clipboardData.files.length; i++) {
+            pastedFiles.push(e.clipboardData.files[i]);
+          }
+        }
+
+        if (pastedFiles.length > 0) {
+          e.preventDefault();
+          handleFiles(pastedFiles);
+        }
+      });
+    }
+
+    function handleFiles(files) {
+      if (!files || files.length === 0) return;
+
+      const remainingSlots = 3 - attachedImages.length;
+      if (remainingSlots <= 0) {
+        alert("Maximum 3 image attachments allowed per ticket.");
+        return;
+      }
+
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+      filesToProcess.forEach(file => {
+        const isImage = (file.type && file.type.startsWith('image/')) || 
+                        /\.(png|jpe?g|webp|gif|bmp|heic)$/i.test(file.name);
+        if (!isImage) {
+          alert(`File "${file.name}" is not a supported image format.`);
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`File "${file.name}" exceeds the 5MB size limit.`);
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target && e.target.result) {
+            const imgObj = {
+              name: file.name || `screenshot-${Date.now()}.png`,
+              type: file.type || 'image/png',
+              size: (file.size / 1024).toFixed(1) + ' KB',
+              base64: e.target.result
+            };
+            attachedImages.push(imgObj);
+            renderImagePreviews();
+          }
+        };
+        reader.onerror = (err) => {
+          console.error("FileReader failed to read image:", err);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderImagePreviews() {
+      if (!previewList) return;
+      previewList.innerHTML = '';
+
+      attachedImages.forEach((img, idx) => {
+        const item = document.createElement('div');
+        item.className = 'image-preview-item';
+        item.innerHTML = `
+          <img src="${img.base64}" alt="${img.name}">
+          <div class="image-preview-info">
+            <span class="image-preview-name" title="${img.name}">${img.name}</span>
+            <span class="image-preview-size">${img.size}</span>
+          </div>
+          <button type="button" class="image-remove-btn" data-idx="${idx}" title="Remove image">&times;</button>
+        `;
+        previewList.appendChild(item);
+      });
+
+      // Bind remove buttons
+      previewList.querySelectorAll('.image-remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+          attachedImages.splice(idx, 1);
+          renderImagePreviews();
+        });
+      });
+    }
+
+    // Function to trigger form scroll and pre-select report type from support cards
+    function selectReportType(type) {
+      const reportTypeSelect = document.getElementById('reportType');
+      const titleInput = document.getElementById('issueTitle');
+      const ticketSection = document.getElementById('ticket-form');
+
+      // If success card is currently showing, reset back to form
+      if (successCard && successCard.style.display !== 'none') {
+        resetFormToInitial();
+      }
+
+      if (reportTypeSelect) {
+        reportTypeSelect.value = type;
+      }
+
+      if (ticketSection) {
+        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      setTimeout(() => {
+        if (titleInput) {
+          titleInput.focus();
+        }
+      }, 450);
+    }
+
+    function resetFormToInitial() {
+      if (form) form.reset();
+      attachedImages = [];
+      renderImagePreviews();
+      document.getElementById('appField').value = 'cs2tricks';
+      if (form) form.style.display = 'flex';
+      if (successCard) successCard.style.display = 'none';
+      if (statusBox) statusBox.style.display = 'none';
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        resetFormToInitial();
+        const ticketSection = document.getElementById('ticket-form');
+        if (ticketSection) ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const app = document.getElementById('appField').value;
+        const reportType = document.getElementById('reportType').value;
+        const title = document.getElementById('issueTitle').value.trim();
+        const email = document.getElementById('userEmail').value.trim();
+        const description = document.getElementById('issueDescription').value.trim();
+
+        if (!title || !description) return;
+
+        // UI loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span>Creating Ticket...</span>`;
+        statusBox.className = 'form-status';
+        statusBox.style.display = 'none';
+
+        try {
+          const response = await fetch(SUPPORT_API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              app: app,
+              reportType: reportType,
+              title: title,
+              email: email,
+              description: description,
+              systemInfo: navigator.userAgent,
+              images: attachedImages
+            })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            // Prominent UI Transition: Show dedicated Success Card
+            if (createdTicketNumber) createdTicketNumber.textContent = `#${data.issueNumber || ''}`;
+            if (createdTicketLink) createdTicketLink.href = data.issueUrl || `https://github.com/serhii-londar/landing-pages/issues`;
+            
+            form.style.display = 'none';
+            successCard.style.display = 'block';
+            successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            throw new Error(data.error || "Failed to create issue");
+          }
+        } catch (err) {
+          // Fallback to GitHub Issues URL pre-fill if worker endpoint fails
+          const fallbackLabels = encodeURIComponent(`app:${app},${reportType},status:created`);
+          const fallbackTitle = encodeURIComponent(`[${app.toUpperCase()}] ${title}`);
+          const fallbackBody = encodeURIComponent(`### Report Type\n${reportType}\n\n### Contact\n${email || 'Anonymous'}\n\n### Description\n${description}\n\n---\n*Submitted via Support Form*`);
+          const gitHubUrl = `https://github.com/serhii-londar/landing-pages/issues/new?title=${fallbackTitle}&labels=${fallbackLabels}&body=${fallbackBody}`;
+
+          statusBox.className = 'form-status error';
+          statusBox.innerHTML = `⚠️ Support API could not be reached (${err.message}). <a href="${gitHubUrl}" target="_blank" rel="noopener">Click here to submit directly via GitHub Issues →</a> or email <a href="mailto:serhii.londar@gmail.com">serhii.londar@gmail.com</a>.`;
+          statusBox.style.display = 'block';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<span>Submit Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>`;
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
