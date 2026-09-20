@@ -1,14 +1,14 @@
 # Terms of Use — CS2 Tricks
 
-**Last updated: 19 September 2026**
+**Last updated: 20 September 2026**
 
-Please read these Terms of Use ("Terms") carefully before using the **CS2 Tricks** application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
+Please read these Terms of Use ("Terms") carefully before using this unofficial, independently developed iOS application ("the App"). By downloading, installing, or using the App, you agree to be bound by these Terms.
 
 ## 1. Intellectual property & fan content
 
 Counter-Strike, Counter-Strike 2, CS2, and related marks are trademarks of **Valve Corporation**.
 
-The App is an unofficial, fan-created companion for informational purposes. It is not affiliated with, authorized by, endorsed by, or sponsored by Valve Corporation.
+The App is unofficial and independently developed. It is not the official CS2 Tricks app or website. It is not affiliated with, authorized by, endorsed by, or sponsored by the cs2tricks.com team or Valve Corporation.
 
 ## 2. Permitted use
 
@@ -18,7 +18,7 @@ Lineup content is provided for learning grenade throws and map tricks. Do not us
 
 ## 3. Disclaimer of warranties
 
-The App is provided on an **"AS IS"** and **"AS AVAILABLE"** basis without warranties of any kind, whether express or implied. Lineups, maps, and images are loaded from cs2tricks.com and may change, be incomplete, or become outdated after a game update.
+The App is provided on an **"AS IS"** and **"AS AVAILABLE"** basis without warranties of any kind, whether express or implied. Lineups, maps, and images are loaded from cs2tricks.com (a third-party site we do not operate) and may change, be incomplete, or become outdated after a game update.
 
 ## 4. Limitation of liability
 

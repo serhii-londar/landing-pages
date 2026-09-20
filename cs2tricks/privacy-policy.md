@@ -1,8 +1,10 @@
 # Privacy Policy
 
-Last updated: 19 September 2026
+Last updated: 20 September 2026
 
-CS2 Tricks (“the app”) is a companion for browsing Counter-Strike 2 grenade lineups and tricks. This policy describes what the iOS app does with information.
+This iOS app is unofficial and independently developed. It is not the official CS2 Tricks app. Lineup content is loaded from `cs2tricks.com`, a third-party site we do not operate.
+
+This policy describes what the iOS app does with information.
 
 ## Data we collect
 
@@ -26,4 +28,4 @@ The app is not directed at children under 13.
 
 Questions: [serhii.londar@gmail.com](mailto:serhii.londar@gmail.com)
 
-Website: [https://www.cs2tricks.com](https://www.cs2tricks.com)
+Content source: [https://www.cs2tricks.com](https://www.cs2tricks.com)
